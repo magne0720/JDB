@@ -1,0 +1,5 @@
+ノイズマテリアル適用方法
+
+①適用したいオブジェクトに「NoiseMaterial」をアタッチ
+②オブジェクトのマテリアルのShaderを「Custom/NoiseShader」に変更
+③オブジェクトに「NoiseScript」をアタッチ
