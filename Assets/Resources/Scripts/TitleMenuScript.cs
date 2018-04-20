@@ -27,6 +27,7 @@ public class TitleMenuScript : MonoBehaviour {
     }
     public void CloseGame()
     {
+        //Application.Quit();//ゲームを終了する処理
         Debug.Log("閉じる");
     }
 }
