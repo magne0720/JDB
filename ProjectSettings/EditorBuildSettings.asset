@@ -4,12 +4,4 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes:
-  - enabled: 1
-<<<<<<< HEAD
-    path: Assets/Scene/NozuScene.unity
-    guid: d671d6fe982f4284589fa7c2370c7089
-=======
-    path: Assets/Scene/KasugaiScene.unity
-    guid: 9f6ea622da631124bba71b052e9462d1
->>>>>>> f80011fdb26788ccf314eb9b8d1cc12fe9f329bd
+  m_Scenes: []
