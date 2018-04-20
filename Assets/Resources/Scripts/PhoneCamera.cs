@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class PhoneCamera : MonoBehaviour
 {
+    public const int TAKE_LIMIT = 36;
+    public int TakeTimes = 0;
 
     public Camera cam;
     public RenderTexture RenderTextureRef;
-
-   
+    
     public static List<Texture2D> texs;
 
     // Use this for initialization
@@ -24,13 +25,15 @@ public class PhoneCamera : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             Debug.Log("ScreenShot");
-            screenShot();
+            TakePhoto();
+            TakeTimes++;
         }
-
     }
 
-    public void screenShot()
+    public void TakePhoto()
     {
+        if (TakeTimes >= TAKE_LIMIT) return;
+
         Texture2D tex = new Texture2D(RenderTextureRef.width, RenderTextureRef.height, TextureFormat.RGB24, false);
         RenderTexture.active = RenderTextureRef;
         tex.ReadPixels(new Rect(0, 0, RenderTextureRef.width, RenderTextureRef.height), 0, 0);
@@ -51,5 +54,9 @@ public class PhoneCamera : MonoBehaviour
     public static List<Texture2D> GetTextures()
     {
         return texs;
+    }
+    public static int GetTotalPhotoNumber()
+    {
+        return texs.Count;
     }
 }
