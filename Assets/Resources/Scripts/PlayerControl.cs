@@ -6,6 +6,8 @@ public class PlayerControl : MonoBehaviour {
 
     PhoneCamera phone;
 
+    public GameObject testObj;
+
 	// Use this for initialization
 	void Start () {
 		
@@ -31,6 +33,7 @@ public class PlayerControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             Debug.Log("Xボタンを押した");
+            Instantiate(testObj);
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {
