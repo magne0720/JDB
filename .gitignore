@@ -27,3 +27,5 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+Assets/Resources/OvrAvatarSettings.asset.meta
+Assets/Resources/OvrAvatarSettings.asset
