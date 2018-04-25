@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerControl : MonoBehaviour {
 
     PhoneCamera phone;
+    public GameObject stick;
 
     public GameObject testObj;
 
@@ -17,6 +18,7 @@ public class PlayerControl : MonoBehaviour {
     void Update()
     {
         InputControl();
+        InputRightPosition();
     }
     void InputControl()
     {
@@ -60,5 +62,11 @@ public class PlayerControl : MonoBehaviour {
         {
             Debug.Log("左中指トリガーを押した");
         }
+    }
+
+    //右手コントローラーの位置の設定
+    void InputRightPosition()
+    {
+        stick.transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
     }
 }
