@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//移行済み
+
 public class TitleMenuScript : MonoBehaviour {
 
     public string SceneName = null;
