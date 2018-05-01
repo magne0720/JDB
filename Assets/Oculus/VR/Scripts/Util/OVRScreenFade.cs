@@ -35,11 +35,6 @@ public class OVRScreenFade : MonoBehaviour
 
     public bool fadeOnStart = true;
 
-	/// <summary>
-	/// The render queue used by the fade mesh. Reduce this if you need to render on top of it.
-	/// </summary>
-	public int renderQueue = 5000;
-
     private float uiFadeAlpha = 0;
 
 	private MeshRenderer fadeRenderer;
@@ -102,7 +97,7 @@ public class OVRScreenFade : MonoBehaviour
 
 		mesh.uv = uv;
 
-		SetFadeLevel(0);
+		fadeRenderer.material = fadeMaterial;
 	}
 
     /// <summary>
@@ -201,7 +196,6 @@ public class OVRScreenFade : MonoBehaviour
         if (fadeMaterial != null)
         {
             fadeMaterial.color = color;
-			fadeMaterial.renderQueue = renderQueue;
 			fadeRenderer.material = fadeMaterial;
 			fadeRenderer.enabled = isFading;
         }
