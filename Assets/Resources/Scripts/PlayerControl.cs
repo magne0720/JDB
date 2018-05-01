@@ -10,6 +10,8 @@ public class PlayerControl : MonoBehaviour {
 
     public Vector3 forward;
     public float dis;
+
+    public bool isVRMode;
     // Use this for initialization
     void Start () {
 
@@ -21,6 +23,7 @@ public class PlayerControl : MonoBehaviour {
         InputKeyboard();
         InputControl();
         //InputRightPosition();
+        if(!isVRMode)
         InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
     }
     void Move(Vector2 target)
@@ -103,7 +106,7 @@ public class PlayerControl : MonoBehaviour {
         }
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
-        stick.transform.position = head.transform.forward*dis +transform.position+new Vector3(0,1,0);
+        //stick.transform.position = head.transform.forward*dis +transform.position+new Vector3(0,1,0);
     }
     void InputCameraMoment(float x,float y)
     {
