@@ -22,14 +22,28 @@ public class PhoneCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
+        Debug.DrawRay(transform.position, transform.forward*1000,Color.red,0.4f);
+
+       // if (Input.GetKeyDown(KeyCode.R))
         {
-            Debug.Log("ScreenShot");
-            TakePhoto();
-            TakeTimes++;
+            GhostCheck();
         }
     }
+    void OnDrawGizmos()
+    {
 
+        RaycastHit hit;
+        bool isHit = Physics.SphereCast(transform.position, 0.3f, transform.forward * 10,out hit);
+        if (isHit)
+        {
+            Gizmos.DrawRay(transform.position, transform.forward * hit.distance);
+            Gizmos.DrawWireSphere(transform.position + transform.forward * (hit.distance), 0.3f);
+        }
+        else
+        {
+            Gizmos.DrawRay(transform.position, transform.forward * 100);
+        }
+    }
     public void TakePhoto()
     {
         if (TakeTimes >= TAKE_LIMIT) return;
@@ -42,6 +56,7 @@ public class PhoneCamera : MonoBehaviour
 
         texs.Add(tex);
 
+        TakeTimes++;
 
         //// Encode texture into PNG
         //byte[] bytes = tex.EncodeToPNG();
@@ -50,6 +65,19 @@ public class PhoneCamera : MonoBehaviour
         ////Write to a file in the project folder
         ////File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
         //File.WriteAllBytes("C:/Users/student/Desktop/SavedScreen.png", bytes);
+    }
+    public void GhostCheck()
+    {
+        //メインカメラ上のマウスカーソルのある位置からRayを飛ばす
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        //if (Physics.CapsuleCast(transform.position, transform.forward * 1.0f, 3.0f, transform.forward, out hit))
+        if (Physics.Raycast(ray,out hit,Mathf.Infinity))
+        {
+            //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
+            //Debug.Log(hit.collider.gameObject.name);
+        }
     }
     public static List<Texture2D> GetTextures()
     {
