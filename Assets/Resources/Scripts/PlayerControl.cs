@@ -23,8 +23,11 @@ public class PlayerControl : MonoBehaviour {
         InputKeyboard();
         InputControl();
         //InputRightPosition();
-        if(!isVRMode)
-        InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
+        if (!isVRMode)
+        {
+            head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
+        }
     }
     void Move(Vector2 target)
     {
@@ -106,7 +109,7 @@ public class PlayerControl : MonoBehaviour {
         }
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
-        //stick.transform.position = head.transform.forward*dis +transform.position+new Vector3(0,1,0);
+        stick.transform.position = head.transform.forward*dis +transform.position;
     }
     void InputCameraMoment(float x,float y)
     {
