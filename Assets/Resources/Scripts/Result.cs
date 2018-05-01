@@ -28,13 +28,14 @@ public class Result : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        CameraRoll();
 
         if (Input.GetKeyDown(KeyCode.O))
         {
             InstGallery();
         }
 	}
+
+    //ギャラリー画面の作成
     public static void InstGallery()
     {
         if (Gallery != null)
@@ -58,15 +59,6 @@ public class Result : MonoBehaviour {
             obj.transform.localScale = new Vector3(1,1,1);
             count++;
             Gallery.Add(obj);
-        }
-    }
-
-    public void CameraRoll()
-    {
-       
-        foreach (GameObject obj in Gallery)
-        {
-            
         }
     }
 }

@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class PlayerControl : MonoBehaviour {
 
-    PhoneCamera phone;
+    public PhoneCamera phone;//自撮り棒の先に置かれたカメラ
+    public GameObject stick;//自撮り棒
+    public GameObject head;//頭
 
-    public GameObject testObj;
+    public Vector3 forward;
+    public float dis;
+    // Use this for initialization
+    void Start () {
 
-	// Use this for initialization
-	void Start () {
-		
 	}
 
     // Update is called once per frame
     void Update()
     {
+        InputKeyboard();
         InputControl();
+        //InputRightPosition();
+        InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
     }
+    void Move(Vector2 target)
+    {
+        transform.Translate(target.x * Time.deltaTime, 0, target.y * Time.deltaTime);
+    }
+
     void InputControl()
     {
         if (OVRInput.GetDown(OVRInput.RawButton.A))
@@ -33,7 +43,6 @@ public class PlayerControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             Debug.Log("Xボタンを押した");
-            Instantiate(testObj);
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {
@@ -43,7 +52,6 @@ public class PlayerControl : MonoBehaviour {
         {
             Debug.Log("メニューボタン（左アナログスティックの下にある）を押した");
         }
-
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
             Debug.Log("右人差し指トリガーを押した");
@@ -60,5 +68,82 @@ public class PlayerControl : MonoBehaviour {
         {
             Debug.Log("左中指トリガーを押した");
         }
+        //スティック
+        // 左手のアナログスティックの向きを取得
+        Vector2 stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
+        //移動
+        Move(stickL);
+        
+        // 右手のアナログスティックの向きを取得
+        Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
+
+
+
+    }
+
+    //右手コントローラーの位置の設定
+    void InputRightPosition()
+    {
+        stick.transform.position = OVRInput.GetLocalControllerPosition(OVRInput.Controller.RTouch);
+    }
+    //テスト用のキーボード操作
+    void InputKeyboard()
+    {
+        if (Input.GetKey(KeyCode.W))
+        {
+            transform.Translate(new Vector3(0, 0, Time.deltaTime));
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(new Vector3(0, 0, -Time.deltaTime));
+        }
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            phone.TakePhoto();
+        }
+        float mad = Input.GetAxis("Mouse ScrollWheel");
+        dis += mad;
+        stick.transform.position = head.transform.forward*dis +transform.position+new Vector3(0,1,0);
+    }
+    void InputCameraMoment(float x,float y)
+    {
+        forward+=new Vector3(x,y,0);
+
+
+        if (forward.y > 80) forward.y = 80;//下方向の上限
+        if (forward.y < -80) forward.y = -80;//上方向の上限
+
+        head.transform.rotation = Quaternion.Euler(new Vector3(forward.y,forward.x,0));
+        transform.rotation = Quaternion.Euler(new Vector3(0, forward.x, 0));
+    }
+    Vector3 getDirectionDegree(Vector3 target,float deg,float range = 1.0f)
+    {
+        Vector3 vector = target.normalized;
+
+        //ラジアンに変換
+        float rag = deg + Mathf.PI / 180;
+
+        float ax = vector.x * Mathf.Cos(rag) - vector.z * Mathf.Sin(rag);
+        float az = vector.x * Mathf.Sin(rag) - vector.z * Mathf.Cos(rag);
+
+        vector.x = ax * range;
+        vector.z = az * range;
+
+        return vector;
+    }
+    Vector3 RotateY(Vector3 target,float deg,float range = 1.0f)
+    {
+        Vector3 vector = (target).normalized;
+
+        //ラジアンに変換
+        float rag = deg + Mathf.PI / 180;
+        
+        float az = vector.z * Mathf.Cos(rag) - vector.x * Mathf.Sin(rag);
+        float ax = vector.z * Mathf.Sin(rag) - vector.x * Mathf.Cos(rag);
+
+        vector.z = az * range;
+        vector.x = ax * range;
+
+        return vector;
     }
 }
