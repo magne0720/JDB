@@ -12,9 +12,13 @@ public class PlayerControl : MonoBehaviour {
     public float dis;
 
     public bool isVRMode;
+    public bool isStickMode;
     // Use this for initialization
     void Start () {
-
+        if (isVRMode)
+        {
+            isStickMode = false;
+        }
 	}
 
     // Update is called once per frame
@@ -23,8 +27,11 @@ public class PlayerControl : MonoBehaviour {
         InputKeyboard();
         InputControl();
         //InputRightPosition();
-        if(!isVRMode)
-        InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
+        if (!isVRMode)
+        {
+            head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
+            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
+        }
     }
     void Move(Vector2 target)
     {
@@ -92,32 +99,51 @@ public class PlayerControl : MonoBehaviour {
     //テスト用のキーボード操作
     void InputKeyboard()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (!isStickMode)
         {
-            transform.Translate(new Vector3(0, 0, Time.deltaTime));
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            transform.Translate(new Vector3(0, 0, -Time.deltaTime));
+            if (Input.GetKey(KeyCode.W))
+            {
+                transform.Translate(new Vector3(0, 0, Time.deltaTime));
+            }
+            if (Input.GetKey(KeyCode.S))
+            {
+                transform.Translate(new Vector3(0, 0, -Time.deltaTime));
+            }
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
             phone.TakePhoto();
         }
+        if (Input.GetMouseButtonDown(0))
+        {
+            phone.TakePhoto();
+        }
+        //スティックを動かすモード
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (isStickMode) isStickMode = false;
+            else isStickMode = true;
+        }
+
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
-        //stick.transform.position = head.transform.forward*dis +transform.position+new Vector3(0,1,0);
+        stick.transform.position = head.transform.forward*dis +transform.position;
     }
-    void InputCameraMoment(float x,float y)
+    void InputCameraMoment(float x, float y)
     {
-        forward+=new Vector3(x,y,0);
-
+        forward += new Vector3(x, y, 0);
 
         if (forward.y > 80) forward.y = 80;//下方向の上限
         if (forward.y < -80) forward.y = -80;//上方向の上限
 
-        head.transform.rotation = Quaternion.Euler(new Vector3(forward.y,forward.x,0));
-        transform.rotation = Quaternion.Euler(new Vector3(0, forward.x, 0));
+        if (!isStickMode) {
+            head.transform.rotation = Quaternion.Euler(new Vector3(forward.y, forward.x, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(0, forward.x, 0));
+        }
+        else
+        {
+            stick.transform.rotation = Quaternion.Euler(new Vector3(forward.y, forward.x, 0));
+        }
     }
     Vector3 getDirectionDegree(Vector3 target,float deg,float range = 1.0f)
     {

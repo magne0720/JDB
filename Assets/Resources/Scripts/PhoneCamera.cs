@@ -23,11 +23,7 @@ public class PhoneCamera : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, transform.forward*1000,Color.red,0.4f);
-
-       // if (Input.GetKeyDown(KeyCode.R))
-        {
-            GhostCheck();
-        }
+       
     }
     void OnDrawGizmos()
     {
@@ -58,6 +54,8 @@ public class PhoneCamera : MonoBehaviour
 
         TakeTimes++;
 
+        GhostCheck(transform.position);
+
         //// Encode texture into PNG
         //byte[] bytes = tex.EncodeToPNG();
         //Object.Destroy(tex);
@@ -66,18 +64,9 @@ public class PhoneCamera : MonoBehaviour
         ////File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
         //File.WriteAllBytes("C:/Users/student/Desktop/SavedScreen.png", bytes);
     }
-    public void GhostCheck()
+    public void GhostCheck(Vector3 myPos)
     {
-        //メインカメラ上のマウスカーソルのある位置からRayを飛ばす
-        Ray ray = new Ray(transform.position, transform.forward);
-        RaycastHit hit;
-
-        //if (Physics.CapsuleCast(transform.position, transform.forward * 1.0f, 3.0f, transform.forward, out hit))
-        if (Physics.Raycast(ray,out hit,Mathf.Infinity))
-        {
-            //Rayが当たるオブジェクトがあった場合はそのオブジェクト名をログに表示
-            //Debug.Log(hit.collider.gameObject.name);
-        }
+        Result.GhostCheck(myPos);
     }
     public static List<Texture2D> GetTextures()
     {
