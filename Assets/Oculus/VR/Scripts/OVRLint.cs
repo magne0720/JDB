@@ -383,8 +383,8 @@ public class OVRLint : EditorWindow
 				{
 					AddFix("Optimize Audio Source Count", "For CPU performance, please disable all but the top 16 AudioSources.", delegate (UnityEngine.Object obj, bool last, int selected)
 					{
-					AudioSource audioSource = (AudioSource)obj;
-					audioSource.enabled = false;
+						AudioSource audioSource = (AudioSource)obj;
+						audioSource.enabled = false;
 					}, playingAudioSources[i], "Disable");
 				}
 			}

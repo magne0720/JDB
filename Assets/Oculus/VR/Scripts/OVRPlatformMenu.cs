@@ -32,7 +32,7 @@ public class OVRPlatformMenu : MonoBehaviour
 	/// <summary>
 	/// The key code.
 	/// </summary>
-	private OVRInput.RawButton inputCode = OVRInput.RawButton.Back;
+	public KeyCode keyCode = KeyCode.Escape;
 
 	public enum eHandler
 	{
@@ -48,22 +48,93 @@ public class OVRPlatformMenu : MonoBehaviour
 	public System.Func<bool> OnShortPress;
 	private static Stack<string> sceneStack = new Stack<string>();
 
+	private float doubleTapDelay = 0.25f;
+	private float shortPressDelay = 0.25f;
+	private float longPressDelay = 0.75f;
+
 	enum eBackButtonAction
 	{
 		NONE,
+		DOUBLE_TAP,
 		SHORT_PRESS
 	};
 
-	eBackButtonAction HandleBackButtonState()
-	{
-		eBackButtonAction action = eBackButtonAction.NONE;
+	private int downCount = 0;
+	private int upCount = 0;
+	private float initialDownTime = -1.0f;
 
-		if (OVRInput.GetDown(inputCode))
+	eBackButtonAction ResetAndSendAction( eBackButtonAction action )
+	{
+		print( "ResetAndSendAction( " + action + " );" );
+		downCount = 0;
+		upCount = 0;
+		initialDownTime = -1.0f;
+		return action;
+	}
+
+	eBackButtonAction HandleBackButtonState() 
+	{
+		if ( Input.GetKeyDown( keyCode ) )
 		{
-			action = eBackButtonAction.SHORT_PRESS;
+			// just came down
+			downCount++;
+			if ( downCount == 1 )
+			{
+				initialDownTime = Time.realtimeSinceStartup;
+			}
+		}
+		else if ( downCount > 0 )
+		{
+			if ( Input.GetKey( keyCode ) )
+			{
+				if ( downCount <= upCount )
+				{
+					// just went down
+					downCount++;
+				}
+
+				float timeSinceFirstDown = Time.realtimeSinceStartup - initialDownTime;
+				if ( timeSinceFirstDown > longPressDelay )
+				{
+					return ResetAndSendAction( eBackButtonAction.NONE );
+				}
+			}
+			else
+			{
+				bool started = initialDownTime >= 0.0f;
+				if ( started )
+				{
+					if ( upCount < downCount )
+					{
+						// just came up
+						upCount++;
+					}
+
+					float timeSinceFirstDown = Time.realtimeSinceStartup - initialDownTime;
+					if (timeSinceFirstDown < doubleTapDelay)
+					{
+						if (downCount == 2 && upCount == 2)
+						{
+							return ResetAndSendAction(eBackButtonAction.DOUBLE_TAP);
+						}
+					}
+					else if (timeSinceFirstDown > shortPressDelay && timeSinceFirstDown < longPressDelay)
+					{
+						if (downCount == 1 && upCount == 1)
+						{
+							return ResetAndSendAction(eBackButtonAction.SHORT_PRESS);
+						}
+					}
+					else if (timeSinceFirstDown > longPressDelay)
+					{
+						return ResetAndSendAction(eBackButtonAction.NONE);
+					}
+				}
+			}
 		}
 
-		return action;
+		// down reset, but perform no action
+		return eBackButtonAction.NONE;
 	}
 
 	/// <summary>
@@ -81,6 +152,27 @@ public class OVRPlatformMenu : MonoBehaviour
 		}
 
 		sceneStack.Push(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+	}
+
+	/// <summary>
+	/// Reset when resuming
+	/// </summary>
+	void OnApplicationFocus( bool focusState )
+	{
+		//Input.ResetInputAxes();
+		//ResetAndSendAction( eBackButtonAction.NONE );
+	}
+
+	/// <summary>
+	/// Reset when resuming
+	/// </summary>
+	void OnApplicationPause( bool pauseStatus ) 
+	{
+		if ( !pauseStatus )
+		{
+			Input.ResetInputAxes();
+		}
+		//ResetAndSendAction( eBackButtonAction.NONE );
 	}
 
 	/// <summary>
@@ -120,9 +212,7 @@ public class OVRPlatformMenu : MonoBehaviour
 		if (action == eBackButtonAction.SHORT_PRESS)
 		{
 			if (OnShortPress == null || OnShortPress())
-			{
 				ShowConfirmQuitMenu();
-			}
 		}
 #endif
 	}
