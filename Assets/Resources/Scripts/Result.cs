@@ -3,44 +3,54 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Result : MonoBehaviour {
+public class Result : MonoBehaviour
+{
 
 
     public static GameObject gCanvas;
     public static GameObject imageObj;
     public static List<GameObject> Gallery;
+    public static List<GameObject> HorrorItems;
+    public const float CaptionDis = 5.0f;//写真を撮った時に被写体として受け入れる距離
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         gCanvas = GameObject.Find("Content");
         imageObj = Resources.Load("Prefabs/ImageObj") as GameObject;
 
-        if (gCanvas != null)
+        if (gCanvas == null)
         {
-            Debug.Log("Apperer gCanvas");
+            Debug.Log("Not gCanvas");
         }
-        if (imageObj != null)
+        if (imageObj == null)
         {
-            Debug.Log("Load imageObj");
+            Debug.Log("Not imageObj");
         }
         Gallery = new List<GameObject>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        HorrorItems = new List<GameObject>();
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Horror"))
+        {
+            HorrorItems.Add(g);
+        }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
 
         if (Input.GetKeyDown(KeyCode.O))
         {
             InstGallery();
         }
-	}
+    }
 
     //ギャラリー画面の作成
     public static void InstGallery()
     {
         if (Gallery != null)
         {
-            foreach(GameObject g in Gallery)
+            foreach (GameObject g in Gallery)
             {
                 Destroy(g);
             }
@@ -55,10 +65,24 @@ public class Result : MonoBehaviour {
             obj.GetComponentInChildren<RawImage>().texture = t;
             obj.transform.parent = gCanvas.transform;
             //obj.transform.position = new Vector2(count * 165 % 660 + 100, (count / 4 * (float)100) - 70);
-            obj.transform.position = new Vector2(count * 165 % 660 + 100, obj.transform.parent.position.y- (count / 4 * (float)100) - 70);
-            obj.transform.localScale = new Vector3(1,1,1);
+            obj.transform.position = new Vector2(count * 165 % 660 + 100, obj.transform.parent.position.y - (count / 4 * (float)100) - 70);
+            obj.transform.localScale = new Vector3(1, 1, 1);
             count++;
             Gallery.Add(obj);
         }
+    }
+    public static void GhostCheck(Vector3 camPos)
+    {
+        if (HorrorItems.Count > 0)
+            foreach (GameObject g in HorrorItems)
+            {
+                if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
+                {
+                    if (g.GetComponent<IsRendered>().isRendered)
+                    {
+                        g.GetComponent<IsRendered>().Caption();
+                    }
+                }
+            }
     }
 }

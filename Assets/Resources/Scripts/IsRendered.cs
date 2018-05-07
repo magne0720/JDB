@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//カメラに写った状態が知りたいものの基底クラス
 public class IsRendered : MonoBehaviour
 {
 
@@ -9,26 +11,29 @@ public class IsRendered : MonoBehaviour
     private const string MAIN_CAMERA_TAG_NAME = "PhoneCamera";
 
     //カメラに表示されているか
-    private bool _isRendered = false;
+    public bool isRendered = false;
 
     private void Update()
     {
-
-        if (_isRendered)
+        if (isRendered)
         {
-            Debug.Log("カメラに映ってるよ！");
+            Debug.Log(gameObject.name+"はカメラに映ってるよ！");
         }
 
-        _isRendered = false;
+        isRendered = false;
     }
 
     //カメラに映ってる間に呼ばれる
     private void OnWillRenderObject()
     {
-        //メインカメラに映った時だけ_isRenderedを有効に
+        //メインカメラに映った時だけisRenderedを有効に
         if (Camera.current.tag == MAIN_CAMERA_TAG_NAME)
         {
-            _isRendered = true;
+            isRendered = true;
         }
+    }
+    public virtual void Caption()
+    {
+        //継承先で変わる
     }
 }
