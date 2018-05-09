@@ -11,7 +11,7 @@ public class Result : MonoBehaviour
     public static GameObject imageObj;
     public static List<GameObject> Gallery;
     public static List<GameObject> HorrorItems;
-    public const float CaptionDis = 5.0f;//写真を撮った時に被写体として受け入れる距離
+    public const float CaptionDis = 10.0f;//写真を撮った時に被写体として受け入れる距離
 
     // Use this for initialization
     void Start()
@@ -32,6 +32,7 @@ public class Result : MonoBehaviour
         foreach (GameObject g in GameObject.FindGameObjectsWithTag("Horror"))
         {
             HorrorItems.Add(g);
+            Debug.Log("<color=green>" + g.name + "</color>");
         }
     }
 
@@ -74,13 +75,16 @@ public class Result : MonoBehaviour
     public static void GhostCheck(Vector3 camPos)
     {
         if (HorrorItems.Count > 0)
+            Debug.Log("count"+HorrorItems.Count);
             foreach (GameObject g in HorrorItems)
             {
                 if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
                 {
-                    if (g.GetComponent<IsRendered>().isRendered)
+                IsRendered IR = g.GetComponent<IsRendered>();
+                g.transform.Rotate(new Vector3(0, 10, 0));
+                    if (IR.isRendered)
                     {
-                        g.GetComponent<IsRendered>().Caption();
+                        IR.Caption();
                     }
                 }
             }

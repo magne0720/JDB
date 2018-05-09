@@ -13,13 +13,16 @@ public class IsRendered : MonoBehaviour
     //カメラに表示されているか
     public bool isRendered = false;
 
-    private void Update()
+    public virtual void Update()
     {
-        if (isRendered)
-        {
-            Debug.Log(gameObject.name+"はカメラに映ってるよ！");
-        }
-
+        //if (isRendered)
+        //{
+        //    Debug.Log(gameObject.name+"はカメラに映ってるよ！");
+        //}
+    }
+    void LateUpdate()
+    {
+        //写っている状態を遅らせるため
         isRendered = false;
     }
 

@@ -6,6 +6,7 @@ using UnityEngine;
 //見えない敵クラス
 public class EnemyControl : IsRendered {
 
+    public float speed;
     public GameObject player;
 
     public enum ENEM_STATUS
@@ -18,8 +19,9 @@ public class EnemyControl : IsRendered {
 
     // Use this for initialization
     void Start () {
-        gameObject.layer = 9;
+        gameObject.layer = 9;//Ghost
         currentStatus = ENEM_STATUS.STAND;
+        speed = 4.0f;
 	}
 	
 	// Update is called once per frame
@@ -39,14 +41,18 @@ public class EnemyControl : IsRendered {
                 CharacterSearch();
                 break;
             case ENEM_STATUS.WALK:
+                WallSearch();
                 CharacterSearch();
+                transform.Translate(new Vector3(0, 0,speed* Time.deltaTime));
                 break;
             case ENEM_STATUS.CHASE:
-                //transform.Translate(new Vector3(0, 0, Time.deltaTime ));
+                WallSearch();
+                transform.Translate(new Vector3(0, 0,speed* Time.deltaTime ));
                 break;
             case ENEM_STATUS.ATTAK:
                 break;
             case ENEM_STATUS.STOP:
+                WallSearch();
                 break;
             default:
                 break;
@@ -73,12 +79,41 @@ public class EnemyControl : IsRendered {
             currentStatus = nextStatus;
         }
     }
+    //目の前が壁だったら右か左に回転する
+    void WallSearch()
+    {
+        //未完成
+        Ray ray=new Ray(transform.position,transform.forward);
+        RaycastHit hit;
+
+        if (Physics.BoxCast(transform.position,Vector3.one,transform.forward,out hit,Quaternion.identity,5.0f))
+        {
+            //Debug.Log("HIT,"+hit.collider.gameObject.name);
+            if (hit.collider.gameObject.tag == "Wall")
+            {
+                
+                transform.Rotate(new Vector3(0, speed*2, 0));
+            }
+        }
+    }
     //目の前にあるキャラクターをリストにする
     void CharacterSearch()
     {
-        if (player != null)
+        //未完成
+        Ray ray = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+
+        if (Physics.Raycast(ray, out hit, 5.0f))
         {
-            nextStatus = ENEM_STATUS.CHASE;
+            Debug.Log("HIT," + hit.collider.gameObject.name);
+            if (hit.collider.gameObject.tag == "Player")
+            {
+                player = hit.collider.gameObject;
+            }
+            if (player != null)
+            {
+                nextStatus = ENEM_STATUS.CHASE;
+            }
         }
     }
     public override void Caption()

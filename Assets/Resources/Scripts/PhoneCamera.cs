@@ -23,7 +23,7 @@ public class PhoneCamera : MonoBehaviour
     void Update()
     {
         Debug.DrawRay(transform.position, transform.forward*1000,Color.red,0.4f);
-       
+        Debug.DrawRay(transform.position, -transform.forward * 5.0f);
     }
     void OnDrawGizmos()
     {
@@ -42,7 +42,8 @@ public class PhoneCamera : MonoBehaviour
     }
     public void TakePhoto()
     {
-        if (TakeTimes >= TAKE_LIMIT) return;
+        //if (TakeTimes >= TAKE_LIMIT) return;
+
 
         Texture2D tex = new Texture2D(RenderTextureRef.width, RenderTextureRef.height, TextureFormat.RGB24, false);
         RenderTexture.active = RenderTextureRef;
