@@ -15,6 +15,7 @@ public class PlayerControl : MonoBehaviour {
     public bool isStickMode;
     // Use this for initialization
     void Start () {
+        
         if (isVRMode)
         {
             isStickMode = false;
@@ -24,11 +25,11 @@ public class PlayerControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        InputKeyboard();
         InputControl();
         //InputRightPosition();
         if (!isVRMode)
         {
+            InputKeyboard();
             head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
         }

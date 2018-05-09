@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PhoneCamera
   - Horror
+  - Wall
   layers:
   - Default
   - TransparentFX
