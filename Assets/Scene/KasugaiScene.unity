@@ -113,6 +113,7 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+<<<<<<< HEAD
 --- !u!1 &31404555
 GameObject:
   m_ObjectHideFlags: 0
@@ -297,6 +298,8 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 331775954}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+=======
+>>>>>>> origin/メニュー本実装
 --- !u!1 &760425168
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,8 +406,13 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.5, z: -4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
+<<<<<<< HEAD
   m_Father: {fileID: 31404560}
   m_RootOrder: 0
+=======
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+>>>>>>> origin/メニュー本実装
   m_LocalEulerAnglesHint: {x: 7, y: 0, z: 0}
 --- !u!1 &2002713911
 GameObject:
