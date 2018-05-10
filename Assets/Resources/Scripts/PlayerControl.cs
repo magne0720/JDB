@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour {
     public PhoneCamera phone;//自撮り棒の先に置かれたカメラ
     public GameObject stick;//自撮り棒
     public GameObject head;//頭
+    public GameObject leftHand;//左手
+
 
     public Vector3 forward;
     public float dis;
@@ -54,6 +56,7 @@ public class PlayerControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             Debug.Log("Xボタンを押した");
+
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {
@@ -87,8 +90,7 @@ public class PlayerControl : MonoBehaviour {
         
         // 右手のアナログスティックの向きを取得
         Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-
-
+        
 
     }
 
@@ -129,6 +131,11 @@ public class PlayerControl : MonoBehaviour {
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
         stick.transform.position = head.transform.forward*dis +transform.position;
+    }
+    //左手に触れたアイテムを左手が持つ（タグ条件）
+    void CatchLeftHand(string tagname)
+    {
+        Debug.Log("catch"+tagname);
     }
     void InputCameraMoment(float x, float y)
     {
