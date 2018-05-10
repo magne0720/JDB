@@ -15,6 +15,7 @@ public class EnemyControl : IsRendered {
     }
     public ENEM_STATUS currentStatus;
     public ENEM_STATUS nextStatus;
+    public float StateTimer;
 
 
     // Use this for initialization
@@ -22,6 +23,7 @@ public class EnemyControl : IsRendered {
         gameObject.layer = 9;//Ghost
         currentStatus = ENEM_STATUS.STAND;
         speed = 4.0f;
+        StateTimer = 0;
 	}
 	
 	// Update is called once per frame
@@ -39,11 +41,13 @@ public class EnemyControl : IsRendered {
         {
             case ENEM_STATUS.STAND:
                 CharacterSearch();
+                ChangeState(ENEM_STATUS.WALK, 4);
                 break;
             case ENEM_STATUS.WALK:
                 WallSearch();
                 CharacterSearch();
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime));
+                ChangeState(ENEM_STATUS.WALK, 6);
                 break;
             case ENEM_STATUS.CHASE:
                 WallSearch();
@@ -78,6 +82,7 @@ public class EnemyControl : IsRendered {
             }
             currentStatus = nextStatus;
         }
+        StateTimer -= Time.deltaTime;
     }
     //目の前が壁だったら右か左に回転する
     void WallSearch()
@@ -125,6 +130,14 @@ public class EnemyControl : IsRendered {
         nextStatus = ENEM_STATUS.STAND;
         Debug.Log("Damage");
         transform.Translate(Vector3.up);
+    }
+    void ChangeState(ENEM_STATUS s,float timer)
+    {
+        if (StateTimer < timer)
+            return;
+
+        nextStatus = s;
+        
     }
     void OnCollisionEnter(Collision c)
     {
