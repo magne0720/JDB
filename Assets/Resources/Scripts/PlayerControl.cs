@@ -56,7 +56,6 @@ public class PlayerControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             Debug.Log("Xボタンを押した");
-
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {

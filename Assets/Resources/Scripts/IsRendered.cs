@@ -34,6 +34,9 @@ public class IsRendered : MonoBehaviour
         {
             isRendered = true;
         }
+
+        //位置
+        //Camera.current.
     }
     public virtual void Caption()
     {

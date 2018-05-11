@@ -7,7 +7,7 @@ using UnityEngine;
 public class HorrorItem : IsRendered {
 
     public bool isCaption;//1度写真に写ったかどうか
-    Vector3 OriginPos;//生成された時の場所
+    public Vector3 OriginPos;//生成された時の場所
 
     private float Debugtimer;
 	// Use this for initialization
@@ -22,6 +22,7 @@ public class HorrorItem : IsRendered {
     // Update is called once per frame
     void Update()
     {
+        OriginPos.y = transform.position.y;
         if (isCaption)
         {
             Debugtimer += Time.deltaTime;
@@ -32,17 +33,19 @@ public class HorrorItem : IsRendered {
             Debugtimer = 0;
             isCaption = false;
         }
-        if (Vector3.Distance(transform.position, OriginPos) > 3.0f)
+        if (Vector3.Distance(transform.position, OriginPos) > 4.0f)
         {
+            
             transform.parent = null;
             Debug.Log("null Node");
         }
-        if (transform.parent == null)
+        if (Vector3.Distance(transform.position, OriginPos) > 0.2f)
         {
-            if (Vector3.Distance(transform.position, OriginPos) > 0.3f)
+            if (transform.parent == null)
             {
-                transform.LookAt(OriginPos-transform.position);
-                transform.Translate((OriginPos-transform.position).normalized * Time.deltaTime);
+                transform.LookAt(OriginPos);
+                transform.Translate(new Vector3(0, 0, Time.deltaTime));
+                //transform.Translate((transform.position - OriginPos).normalized * Time.deltaTime);
             }
         }
         base.Update();
