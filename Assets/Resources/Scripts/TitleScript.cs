@@ -14,16 +14,16 @@ public class TitleScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKeyDown(KeyCode.Alpha1))//スタートボタン
+        if (Input.GetKeyDown(KeyCode.Return))//スタートボタン
         {
             SceneManager.LoadSceneAsync("GameScene");
         }
-        if (!ConfigActive && Input.GetKeyDown(KeyCode.Alpha2))//コンフィグ
+        if (!ConfigActive && Input.GetKeyDown(KeyCode.C))//コンフィグ
         {
             SceneManager.LoadSceneAsync("ConfigScene", LoadSceneMode.Additive);
             ConfigActive = true;
         }
-        if (Input.GetKeyDown(KeyCode.Alpha3))//終了
+        if (Input.GetKeyDown(KeyCode.Escape))//終了
         {
             //Application.Quit();//ゲームを終了する処理
             Debug.Log("閉じる");
