@@ -9,6 +9,7 @@ public class PlayerControl : MonoBehaviour {
     public GameObject head;//頭
     public GameObject leftHand;//左手
 
+    public float HP;
 
     public Vector3 forward;
     public float dis;
@@ -17,7 +18,8 @@ public class PlayerControl : MonoBehaviour {
     public bool isStickMode;
     // Use this for initialization
     void Start () {
-        
+        HP = 100;
+
         if (isVRMode)
         {
             isStickMode = false;
@@ -27,6 +29,12 @@ public class PlayerControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        //HPなくなったら
+        if (HP <= 0)
+        {
+            HP = 0;
+            transform.Translate(new Vector3(0, 1, 0));
+        }
         InputControl();
         //InputRightPosition();
         if (!isVRMode)
@@ -181,5 +189,19 @@ public class PlayerControl : MonoBehaviour {
         vector.x = ax * range;
 
         return vector;
+    }
+    void OnCollisionEnter(Collision c)
+    {
+        if (c.gameObject.tag == "Horror")
+        {
+            HP -= 1;
+        }
+    }
+    void OnCollisionStay(Collision c)
+    {
+        if (c.gameObject.tag == "Horror")
+        {
+            HP -= 1;
+        }
     }
 }

@@ -7,6 +7,8 @@ TagManager:
   - PhoneCamera
   - Horror
   - Wall
+  - HorrorItem
+  - Glass
   layers:
   - Default
   - TransparentFX

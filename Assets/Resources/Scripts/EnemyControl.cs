@@ -19,7 +19,8 @@ public class EnemyControl : IsRendered {
 
 
     // Use this for initialization
-    void Start () {
+    void Start ()
+    {
         gameObject.layer = 9;//Ghost
         currentStatus = ENEM_STATUS.STAND;
         speed = 4.0f;
@@ -51,6 +52,7 @@ public class EnemyControl : IsRendered {
                 break;
             case ENEM_STATUS.CHASE:
                 WallSearch();
+                transform.LookAt(player.transform.position);
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime ));
                 break;
             case ENEM_STATUS.ATTAK:
@@ -72,6 +74,7 @@ public class EnemyControl : IsRendered {
                 case ENEM_STATUS.WALK:
                     break;
                 case ENEM_STATUS.CHASE:
+                    gameObject.layer = 10;
                     break;
                 case ENEM_STATUS.ATTAK:
                     break;
@@ -91,7 +94,7 @@ public class EnemyControl : IsRendered {
         Ray ray=new Ray(transform.position,transform.forward);
         RaycastHit hit;
 
-        if (Physics.BoxCast(transform.position,Vector3.one,transform.forward,out hit,Quaternion.identity,5.0f))
+        if (Physics.BoxCast(transform.position,transform.localScale,transform.forward,out hit,Quaternion.identity,5.0f))
         {
             //Debug.Log("HIT,"+hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Wall")
@@ -108,7 +111,7 @@ public class EnemyControl : IsRendered {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit, 5.0f))
+        if (Physics.BoxCast(transform.position,Vector3.one,transform.forward,out hit))
         {
             Debug.Log("HIT," + hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Player")

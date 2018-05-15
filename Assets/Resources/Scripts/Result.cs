@@ -29,7 +29,7 @@ public class Result : MonoBehaviour
         }
         Gallery = new List<GameObject>();
         HorrorItems = new List<GameObject>();
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("Horror"))
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("HorrorItem"))
         {
             HorrorItems.Add(g);
             Debug.Log("<color=green>" + g.name + "</color>");

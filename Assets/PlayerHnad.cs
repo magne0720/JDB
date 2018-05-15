@@ -18,7 +18,7 @@ public class PlayerHnad : MonoBehaviour {
 	}
     void OnCollisionEnter(Collision c)
     {
-        if (c.gameObject.tag == "Horror")
+        if (c.gameObject.tag == "HorrorItem")
         {
             c.transform.parent = transform;
             child = c.gameObject;
