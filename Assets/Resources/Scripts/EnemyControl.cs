@@ -41,16 +41,18 @@ public class EnemyControl : IsRendered {
         switch (currentStatus)
         {
             case ENEM_STATUS.STAND:
+                transform.Rotate(new Vector3(0, 5, 0));
+                WallSearch();
                 CharacterSearch();
-                ChangeState(ENEM_STATUS.WALK, 4);
                 break;
             case ENEM_STATUS.WALK:
                 WallSearch();
                 CharacterSearch();
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime));
-                ChangeState(ENEM_STATUS.WALK, 6);
+                //ChangeState(ENEM_STATUS.WALK, 6);
                 break;
             case ENEM_STATUS.CHASE:
+                if (player == null) { ChangeState(ENEM_STATUS.STAND, 0); return; }
                 WallSearch();
                 transform.LookAt(player.transform.position);
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime ));
@@ -65,11 +67,13 @@ public class EnemyControl : IsRendered {
         }
 
         //次回更新に一度の処理
-        if (currentStatus != nextStatus)
+        if (currentStatus != nextStatus && StateTimer<=0)
         {
             switch (currentStatus)
             {
                 case ENEM_STATUS.STAND:
+                    transform.Rotate(new Vector3(0, Random.Range(-180, 180), 0));
+                    ChangeState(ENEM_STATUS.WALK, 4);
                     break;
                 case ENEM_STATUS.WALK:
                     break;
@@ -91,17 +95,24 @@ public class EnemyControl : IsRendered {
     void WallSearch()
     {
         //未完成
-        Ray ray=new Ray(transform.position,transform.forward);
+        Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.BoxCast(transform.position,transform.localScale,transform.forward,out hit,Quaternion.identity,5.0f))
+        if (Physics.BoxCast(transform.position, transform.localScale, transform.forward, out hit, Quaternion.identity, 5.0f))
         {
             //Debug.Log("HIT,"+hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Wall")
             {
-                
-                transform.Rotate(new Vector3(0, speed*2, 0));
+                ChangeState(ENEM_STATUS.STAND,3);
             }
+            if (hit.collider.gameObject.tag == "Glass")
+            {
+                transform.Rotate(new Vector3(0, speed * 0.5f, 0));
+            }
+        }else if (currentStatus == ENEM_STATUS.STAND)
+        {
+
+            ChangeState(ENEM_STATUS.WALK);
         }
     }
     //目の前にあるキャラクターをリストにする
@@ -120,7 +131,7 @@ public class EnemyControl : IsRendered {
             }
             if (player != null)
             {
-                nextStatus = ENEM_STATUS.CHASE;
+                ChangeState(ENEM_STATUS.CHASE);
             }
         }
     }
@@ -130,14 +141,15 @@ public class EnemyControl : IsRendered {
     }
     public void Damage()
     {
-        nextStatus = ENEM_STATUS.STAND;
+        ChangeState(ENEM_STATUS.STAND);
         Debug.Log("Damage");
         transform.Translate(Vector3.up);
     }
-    void ChangeState(ENEM_STATUS s,float timer)
+
+    //設定したtimerを超えると次の状態に移行
+    void ChangeState(ENEM_STATUS s,float timer=0)
     {
-        if (StateTimer < timer)
-            return;
+        StateTimer = timer;
 
         nextStatus = s;
         
