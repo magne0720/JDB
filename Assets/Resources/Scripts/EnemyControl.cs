@@ -111,7 +111,6 @@ public class EnemyControl : IsRendered {
             }
         }else if (currentStatus == ENEM_STATUS.STAND)
         {
-
             ChangeState(ENEM_STATUS.WALK);
         }
     }
