@@ -9,30 +9,25 @@ public class HorrorItem : IsRendered {
     public bool isCaption;//1度写真に写ったかどうか
     public Vector3 OriginPos;//生成された時の場所
 
-    private float Debugtimer;
-	// Use this for initialization
-	void Start () {
+    //特定のアクションを起こすとエフェクトを出す
+    public ParticleSystem actionParticle;
+    //それに応じたサウンド
+    public AudioClip actionEffect;
+
+    // Use this for initialization
+    void Start () {
         isCaption = false;
-        Debugtimer = 0;
         OriginPos = transform.position;
         GetComponent<Rigidbody>().freezeRotation = true;
         GetComponent<Rigidbody>().useGravity = true;
+        InstParticle();
     }
 
     // Update is called once per frame
     void Update()
     {
         OriginPos.y = transform.position.y;
-        if (isCaption)
-        {
-            Debugtimer += Time.deltaTime;
-            transform.Rotate(Vector3.up);
-        }
-        if (Debugtimer >= 3.0f)
-        {
-            Debugtimer = 0;
-            isCaption = false;
-        }
+
         if (Vector3.Distance(transform.position, OriginPos) > 4.0f)
         {
             
@@ -53,8 +48,18 @@ public class HorrorItem : IsRendered {
 
     public override void Caption()
     {
-        Debug.Log(gameObject.name+",<color=red>Caption!!!</color>");
-        isCaption = true;
-        //Destroy(this);
+        Debug.Log(gameObject.name + ",<color=red>Caption!!!</color>");
+        if (!isCaption)
+        {
+            Instantiate(actionParticle, transform.position, Quaternion.identity).Play();
+            isCaption = true;
+            StopParticle();
+            //Destroy(this);
+            if (actionEffect != null)
+            {
+                gameObject.AddComponent<AudioSource>().clip = actionEffect;
+                GetComponent<AudioSource>().Play();
+            }
+        }
     }
 }

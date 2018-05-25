@@ -7,6 +7,10 @@ using UnityEngine;
 public class IsRendered : MonoBehaviour
 {
 
+    //基本的にパーティクルを出す
+    public ParticleSystem Particle;
+    private ParticleSystem particleObj;
+
     //メインカメラに付いているタグ名
     private const string MAIN_CAMERA_TAG_NAME = "PhoneCamera";
 
@@ -41,5 +45,17 @@ public class IsRendered : MonoBehaviour
     public virtual void Caption()
     {
         //継承先で変わる
+    }
+    public void InstParticle()
+    {
+        if (Particle != null)
+        {
+            particleObj = Instantiate(Particle, transform.position, Quaternion.identity);
+            particleObj.Play();
+        }
+    }
+    public void StopParticle()
+    {
+        particleObj.Stop();
     }
 }

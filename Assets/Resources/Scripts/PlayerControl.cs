@@ -56,6 +56,11 @@ public class PlayerControl : MonoBehaviour {
             Debug.Log("Aボタンを押した");
             phone.TakePhoto();
         }
+        if (OVRInput.Get(OVRInput.RawButton.A))
+        {
+            Debug.Log("Aボタンを押した");
+            phone.TakePhoto();
+        }
         if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             Debug.Log("Bボタンを押した");
@@ -125,6 +130,10 @@ public class PlayerControl : MonoBehaviour {
             phone.TakePhoto();
         }
         if (Input.GetMouseButtonDown(0))
+        {
+            phone.TakePhoto();
+        }
+        if (Input.GetMouseButton(0))
         {
             phone.TakePhoto();
         }
