@@ -14,7 +14,7 @@ public class GameMenuPush : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (!menu_active && Input.GetKeyDown(KeyCode.Escape))
+        if (!menu_active && (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.RawButton.Back)))
         {
             SceneManager.LoadScene("MenuScene", LoadSceneMode.Additive);
             menu_active = true;

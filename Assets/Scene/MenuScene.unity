@@ -218,7 +218,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 4096
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -255,7 +255,7 @@ GameObject:
   - component: {fileID: 397282900}
   - component: {fileID: 397282899}
   - component: {fileID: 397282903}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -362,7 +362,7 @@ GameObject:
   - component: {fileID: 449337573}
   - component: {fileID: 449337575}
   - component: {fileID: 449337574}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: bg
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,7 +492,7 @@ GameObject:
   - component: {fileID: 1341571904}
   - component: {fileID: 1341571906}
   - component: {fileID: 1341571905}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: resume_b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -560,7 +560,7 @@ GameObject:
   - component: {fileID: 1396545293}
   - component: {fileID: 1396545295}
   - component: {fileID: 1396545294}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: black
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -628,7 +628,7 @@ GameObject:
   - component: {fileID: 1985087254}
   - component: {fileID: 1985087256}
   - component: {fileID: 1985087255}
-  m_Layer: 8
+  m_Layer: 12
   m_Name: title_b
   m_TagString: Untagged
   m_Icon: {fileID: 0}
