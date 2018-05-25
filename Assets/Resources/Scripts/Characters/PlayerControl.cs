@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -16,6 +17,8 @@ public class PlayerControl : MonoBehaviour {
 
     public bool isVRMode;
     public bool isStickMode;
+
+    public static bool menu_active;
     // Use this for initialization
     void Start () {
         HP = 100;
@@ -24,7 +27,9 @@ public class PlayerControl : MonoBehaviour {
         {
             isStickMode = false;
         }
-	}
+
+        menu_active = false;
+    }
 
     // Update is called once per frame
     void Update()
@@ -43,6 +48,7 @@ public class PlayerControl : MonoBehaviour {
             head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
             InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
         }
+      
     }
     void Move(Vector2 target)
     {
@@ -144,6 +150,11 @@ public class PlayerControl : MonoBehaviour {
             else isStickMode = true;
         }
 
+        if (!menu_active && (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.RawButton.Back)))
+        {
+            OpenMenu();
+        }
+
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
         stick.transform.position = head.transform.forward*dis +transform.position;
@@ -168,6 +179,16 @@ public class PlayerControl : MonoBehaviour {
         {
             stick.transform.rotation = Quaternion.Euler(new Vector3(forward.y, forward.x, 0));
         }
+    }
+    void OpenMenu()
+    {
+        SceneManager.LoadScene("MenuScene", LoadSceneMode.Additive);
+        menu_active = true;
+
+    }
+    public static void setMenuActive(bool b)
+    {
+        menu_active = b;
     }
     Vector3 getDirectionDegree(Vector3 target,float deg,float range = 1.0f)
     {

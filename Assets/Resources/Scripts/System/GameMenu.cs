@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class MenuScript : MonoBehaviour {
+public class GameMenu : MonoBehaviour {
+
 
     public Image ImgTitle, ImgResume;
     public Sprite TexTitle, TexTitleSub, TexResume, TexResumeSub;
@@ -18,8 +19,9 @@ public class MenuScript : MonoBehaviour {
     private bool CanvasFade;
     private bool BlackFade;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         ImgTitle = ImgTitle.GetComponent<Image>();
         ImgResume = ImgResume.GetComponent<Image>();
 
@@ -30,11 +32,12 @@ public class MenuScript : MonoBehaviour {
         CanvasFade = true;
         BlackFade = true;
     }
-	
-	// Update is called once per frame
-	void Update () {
+
+    // Update is called once per frame
+    void Update()
+    {
         //Canvasの透過操作
-        if(CanvasFade) time += Time.deltaTime * 4.0f;
+        if (CanvasFade) time += Time.deltaTime * 4.0f;
         else time -= Time.deltaTime * 4.0f;
         canvas.alpha = time;
 
@@ -47,7 +50,7 @@ public class MenuScript : MonoBehaviour {
         {
             select = false;
         }
-        if(Input.GetKeyDown(KeyCode.DownArrow) || OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y < 0)
+        if (Input.GetKeyDown(KeyCode.DownArrow) || OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y < 0)
         {
             select = true;
         }
@@ -84,7 +87,7 @@ public class MenuScript : MonoBehaviour {
         }
 
         //シーンの移動
-        if(time < 0) SceneManager.UnloadSceneAsync("MenuScene");
-        if(BlackBoardAlpha > 1) SceneManager.LoadSceneAsync("TitleScene");
+        if (time < 0) SceneManager.UnloadSceneAsync("MenuScene");
+        if (BlackBoardAlpha > 1) SceneManager.LoadSceneAsync("TitleScene");
     }
 }
