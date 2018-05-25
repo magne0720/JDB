@@ -17,7 +17,7 @@ public class PhoneCamera : MonoBehaviour
     public GameObject texobj;
     Canvas canvas;
 
-    public float coolTime = 0.1f;
+    public float coolTime = 1.0f;
     float timer = 0;
 
     // Use this for initialization
@@ -59,7 +59,7 @@ public class PhoneCamera : MonoBehaviour
     {
         //if (TakeTimes >= TAKE_LIMIT) return;
 
-        if (timer <= 0.01f) return;
+        if (timer <= coolTime) return;
 
         timer = 0;
 

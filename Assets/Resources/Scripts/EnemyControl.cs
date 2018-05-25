@@ -11,18 +11,19 @@ public class EnemyControl : IsRendered {
 
     public enum ENEM_STATUS
     {
-        STAND, WALK, CHASE,ATTAK, STOP
+        NONE,STAND,ROTATE, WALK, CHASE,ATTAK, STOP
     }
     public ENEM_STATUS currentStatus;
     public ENEM_STATUS nextStatus;
     public float StateTimer;
-
-
+    public float ProgressTimer;
+    
     // Use this for initialization
     void Start ()
     {
         gameObject.layer = 9;//Ghost
         currentStatus = ENEM_STATUS.STAND;
+        ChangeState(ENEM_STATUS.WALK);
         speed = 4.0f;
         StateTimer = 0;
 	}
@@ -34,28 +35,45 @@ public class EnemyControl : IsRendered {
             transform.LookAt(player.transform.position);
         }
         State();
-	}
+        //デバッグ領域
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            ChangeState(ENEM_STATUS.WALK);
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            ChangeState(ENEM_STATUS.STAND);
+        }
+        //------------------------------
+    }
     void State()
     {
         //毎回更新
         switch (currentStatus)
         {
             case ENEM_STATUS.STAND:
-                transform.Rotate(new Vector3(0, 5, 0));
                 WallSearch();
                 CharacterSearch();
                 break;
+            case ENEM_STATUS.ROTATE:
+                //WallSearch();
+                CharacterSearch();
+                ChangeStateReservation(ENEM_STATUS.WALK,1.5f);
+                break;
             case ENEM_STATUS.WALK:
+                transform.Translate(new Vector3(0, 0,speed* Time.deltaTime));
                 WallSearch();
                 CharacterSearch();
-                transform.Translate(new Vector3(0, 0,speed* Time.deltaTime));
                 //ChangeState(ENEM_STATUS.WALK, 6);
                 break;
             case ENEM_STATUS.CHASE:
-                if (player == null) { ChangeState(ENEM_STATUS.STAND, 0); return; }
+                if (player == null)
+                { ChangeStateReservation(ENEM_STATUS.STAND, 0); return; }
+
                 WallSearch();
                 transform.LookAt(player.transform.position);
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime ));
+                Debug.Log("<color=red>chase</color>");
                 break;
             case ENEM_STATUS.ATTAK:
                 break;
@@ -67,13 +85,16 @@ public class EnemyControl : IsRendered {
         }
 
         //次回更新に一度の処理
-        if (currentStatus != nextStatus && StateTimer<=0)
+        if (currentStatus != nextStatus && ProgressTimer >= StateTimer)
         {
             switch (currentStatus)
             {
                 case ENEM_STATUS.STAND:
-                    transform.Rotate(new Vector3(0, Random.Range(-180, 180), 0));
-                    ChangeState(ENEM_STATUS.WALK, 4);
+                    ChangeStateReservation(ENEM_STATUS.ROTATE);
+                    break;
+                case ENEM_STATUS.ROTATE:
+                    transform.Rotate(new Vector3(0, Random.Range(-90, 90), 0));
+                    //ChangeStateReservation(ENEM_STATUS.WALK);
                     break;
                 case ENEM_STATUS.WALK:
                     break;
@@ -89,29 +110,37 @@ public class EnemyControl : IsRendered {
             }
             currentStatus = nextStatus;
         }
-        StateTimer -= Time.deltaTime;
+        ProgressTimer += Time.deltaTime;
     }
     //目の前が壁だったら右か左に回転する
     void WallSearch()
     {
         //未完成
-        Ray ray = new Ray(transform.position, transform.forward);
+        Ray ray = new Ray(transform.position, transform.forward*5.0f);
         RaycastHit hit;
 
-        if (Physics.BoxCast(transform.position, transform.localScale, transform.forward, out hit, Quaternion.identity, 5.0f))
+        Debug.DrawRay(transform.position, transform.forward * 5.0f);
+
+        if (currentStatus == ENEM_STATUS.WALK)
         {
-            //Debug.Log("HIT,"+hit.collider.gameObject.name);
-            if (hit.collider.gameObject.tag == "Wall")
+            //if (Physics.BoxCast(transform.position, Vector3.one, transform.forward, out hit, Quaternion.identity, 1.0f))
+            if (Physics.Raycast(ray, out hit, 5.0f))
             {
-                ChangeState(ENEM_STATUS.STAND,3);
+                //Debug.Log("HIT,"+hit.collider.gameObject.name);
+                if (hit.collider.gameObject.tag == "Wall")
+                {
+                    ChangeStateReservation(ENEM_STATUS.STAND);
+                }
+                if (hit.collider.gameObject.tag == "Glass")
+                {
+                    ChangeStateReservation(ENEM_STATUS.STAND);
+                    //transform.Rotate(new Vector3(0, speed * 0.5f, 0));
+                }
             }
-            if (hit.collider.gameObject.tag == "Glass")
-            {
-                transform.Rotate(new Vector3(0, speed * 0.5f, 0));
-            }
-        }else if (currentStatus == ENEM_STATUS.STAND)
+        }
+        else if (currentStatus == ENEM_STATUS.STAND)
         {
-            ChangeState(ENEM_STATUS.WALK);
+            ChangeStateReservation(ENEM_STATUS.WALK);
         }
     }
     //目の前にあるキャラクターをリストにする
@@ -121,16 +150,16 @@ public class EnemyControl : IsRendered {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.BoxCast(transform.position,Vector3.one,transform.forward,out hit))
+        if (Physics.BoxCast(transform.position,transform.localScale,transform.forward,out hit))
         {
-            Debug.Log("HIT," + hit.collider.gameObject.name);
+            //Debug.Log("HIT," + hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Player")
             {
                 player = hit.collider.gameObject;
             }
             if (player != null)
             {
-                ChangeState(ENEM_STATUS.CHASE);
+                ChangeStateReservation(ENEM_STATUS.CHASE);
             }
         }
     }
@@ -146,12 +175,20 @@ public class EnemyControl : IsRendered {
     }
 
     //設定したtimerを超えると次の状態に移行
-    void ChangeState(ENEM_STATUS s,float timer=0)
+    //0予約で瞬時に変更
+    void ChangeState(ENEM_STATUS s)
+    {
+        currentStatus = s;
+    }
+    void ChangeStateReservation(ENEM_STATUS s, float timer=0)
     {
         StateTimer = timer;
 
-        nextStatus = s;
-        
+        if (currentStatus != s&&nextStatus!=s)
+        {
+            nextStatus = s;
+            ProgressTimer = 0;
+        }
     }
     void OnCollisionEnter(Collision c)
     {
