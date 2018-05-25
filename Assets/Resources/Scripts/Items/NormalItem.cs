@@ -13,4 +13,9 @@ public class NormalItem : MonoBehaviour {
 	void Update () {
 		
 	}
+    //自身を揺らす
+    public void Shake()
+    {
+
+    }
 }

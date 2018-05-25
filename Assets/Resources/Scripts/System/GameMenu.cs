@@ -75,14 +75,14 @@ public class GameMenu : MonoBehaviour {
                 BlackBoardAlpha = 0.0f;
                 BlackFade = false;
                 //SceneManager.LoadSceneAsync("TitleScene");
-                GameMenuPush.setMenuActive(false);
+                //GameMenuPush.setMenuActive(false);
             }
             else
             {
                 CanvasFade = false;
                 time = 1.0f;
                 //SceneManager.UnloadSceneAsync("MenuScene");
-                GameMenuPush.setMenuActive(false);
+                //GameMenuPush.setMenuActive(false);
             }
         }
 
