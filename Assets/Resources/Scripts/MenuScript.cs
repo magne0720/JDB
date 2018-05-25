@@ -39,13 +39,17 @@ public class MenuScript : MonoBehaviour {
         canvas.alpha = time;
 
         //黒いやつの透過操作
-        if (!BlackFade) BlackBoardAlpha += Time.deltaTime;// * 4.0f;
+        if (!BlackFade) BlackBoardAlpha += Time.deltaTime * 2.0f;
         BlackBoard.color = new Color(0, 0, 0, BlackBoardAlpha);
 
         //セレクト
-        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y > 0)
         {
-            select = !select;
+            select = false;
+        }
+        if(Input.GetKeyDown(KeyCode.DownArrow) || OVRInput.Get(OVRInput.RawAxis2D.RThumbstick).y < 0)
+        {
+            select = true;
         }
 
         //選択されているボタンの表示
@@ -61,7 +65,7 @@ public class MenuScript : MonoBehaviour {
         }
 
         //エンター押時の処理
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || OVRInput.GetDown(OVRInput.RawButton.A))
         {
             if (select)
             {
