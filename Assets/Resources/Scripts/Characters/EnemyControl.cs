@@ -8,15 +8,21 @@ public class EnemyControl : IsRendered {
 
     public float speed;
     public GameObject player;
+    public int loiterCount;
+    public Vector3 myPos;
+    public Vector3 loiter;
+    public float debugdis;
+    public List<Vector3> loiteringPoints;//徘徊位置
 
     public enum ENEM_STATUS
     {
-        NONE,STAND,ROTATE, WALK, CHASE,ATTAK, STOP
+        NONE,STAND,ROTATE, WALK, CHASE,ATTACK, STOP
     }
     public ENEM_STATUS currentStatus;
     public ENEM_STATUS nextStatus;
     public float StateTimer;
     public float ProgressTimer;
+    
     
     // Use this for initialization
     void Start ()
@@ -26,10 +32,12 @@ public class EnemyControl : IsRendered {
         ChangeState(ENEM_STATUS.WALK);
         speed = 4.0f;
         StateTimer = 0;
+        NextPoint();
 	}
 	
 	// Update is called once per frame
 	void Update () {
+        myPos = transform.localPosition;
         if (player != null)
         {
             transform.LookAt(player.transform.position);
@@ -44,7 +52,9 @@ public class EnemyControl : IsRendered {
         {
             ChangeState(ENEM_STATUS.STAND);
         }
+        debugdis = Vector3.Distance(transform.localPosition, loiter);
         //------------------------------
+
     }
     void State()
     {
@@ -58,12 +68,19 @@ public class EnemyControl : IsRendered {
             case ENEM_STATUS.ROTATE:
                 //WallSearch();
                 CharacterSearch();
+                //ChangeStateReservation(ENEM_STATUS.WALK, 1.5f);
                 ChangeStateReservation(ENEM_STATUS.WALK,1.5f);
                 break;
             case ENEM_STATUS.WALK:
+                transform.LookAt(loiter-transform.position);
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime));
                 WallSearch();
                 CharacterSearch();
+                if (Vector3.Distance(loiter,transform.localPosition) <= 4.0f)
+                {
+                    ChangeStateReservation(ENEM_STATUS.ROTATE);
+                    Debug.Log("next");
+                }
                 //ChangeState(ENEM_STATUS.WALK, 6);
                 break;
             case ENEM_STATUS.CHASE:
@@ -75,7 +92,7 @@ public class EnemyControl : IsRendered {
                 transform.Translate(new Vector3(0, 0,speed* Time.deltaTime ));
                 Debug.Log("<color=red>chase</color>");
                 break;
-            case ENEM_STATUS.ATTAK:
+            case ENEM_STATUS.ATTACK:
                 break;
             case ENEM_STATUS.STOP:
                 WallSearch();
@@ -93,15 +110,15 @@ public class EnemyControl : IsRendered {
                     ChangeStateReservation(ENEM_STATUS.ROTATE);
                     break;
                 case ENEM_STATUS.ROTATE:
-                    transform.Rotate(new Vector3(0, Random.Range(-90, 90), 0));
-                    //ChangeStateReservation(ENEM_STATUS.WALK);
+                    NextPoint();
+                    //ChangeStateReservation(ENEM_STATUS.WALK,2.0f);
                     break;
                 case ENEM_STATUS.WALK:
                     break;
                 case ENEM_STATUS.CHASE:
                     gameObject.layer = 10;
                     break;
-                case ENEM_STATUS.ATTAK:
+                case ENEM_STATUS.ATTACK:
                     break;
                 case ENEM_STATUS.STOP:
                     break;
@@ -126,7 +143,6 @@ public class EnemyControl : IsRendered {
             //if (Physics.BoxCast(transform.position, Vector3.one, transform.forward, out hit, Quaternion.identity, 1.0f))
             if (Physics.Raycast(ray, out hit, 5.0f))
             {
-                //Debug.Log("HIT,"+hit.collider.gameObject.name);
                 if (hit.collider.gameObject.tag == "Wall")
                 {
                     ChangeStateReservation(ENEM_STATUS.STAND);
@@ -134,7 +150,6 @@ public class EnemyControl : IsRendered {
                 if (hit.collider.gameObject.tag == "Glass")
                 {
                     ChangeStateReservation(ENEM_STATUS.STAND);
-                    //transform.Rotate(new Vector3(0, speed * 0.5f, 0));
                 }
             }
         }
@@ -189,6 +204,16 @@ public class EnemyControl : IsRendered {
             nextStatus = s;
             ProgressTimer = 0;
         }
+    }
+    //次の指定ポイントを決める
+    void NextPoint()
+    {
+        loiterCount++;
+        if (loiterCount >= loiteringPoints.Count)
+            loiterCount = 0;
+
+        loiter = loiteringPoints[loiterCount];
+
     }
     void OnCollisionEnter(Collision c)
     {
