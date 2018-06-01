@@ -50,7 +50,7 @@ public class EnemyControl : IsRendered {
         }
         if (Input.GetKeyDown(KeyCode.L))
         {
-            ChangeState(ENEM_STATUS.STAND);
+            gameObject.layer = 10;
         }
         debugdis = Vector3.Distance(transform.localPosition, loiter);
         //------------------------------
@@ -66,10 +66,10 @@ public class EnemyControl : IsRendered {
                 CharacterSearch();
                 break;
             case ENEM_STATUS.ROTATE:
+                ChangeStateReservation(ENEM_STATUS.WALK,1.5f);
                 //WallSearch();
                 CharacterSearch();
                 //ChangeStateReservation(ENEM_STATUS.WALK, 1.5f);
-                ChangeStateReservation(ENEM_STATUS.WALK,1.5f);
                 break;
             case ENEM_STATUS.WALK:
                 transform.LookAt(loiter-transform.position);
@@ -84,12 +84,20 @@ public class EnemyControl : IsRendered {
                 //ChangeState(ENEM_STATUS.WALK, 6);
                 break;
             case ENEM_STATUS.CHASE:
-                if (player == null)
-                { ChangeStateReservation(ENEM_STATUS.STAND, 0); return; }
-
-                WallSearch();
-                transform.LookAt(player.transform.position);
-                transform.Translate(new Vector3(0, 0,speed* Time.deltaTime ));
+                if (player != null)
+                {
+                    //WallSearch();
+                    transform.LookAt( player.transform.localPosition);
+                    transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
+                    if (Vector3.Distance(transform.position, player.transform.position) > 7.0f)
+                    {
+                        player = null;
+                    }
+                }
+                else
+                {
+                    ChangeStateReservation(ENEM_STATUS.STAND);
+                }
                 Debug.Log("<color=red>chase</color>");
                 break;
             case ENEM_STATUS.ATTACK:
