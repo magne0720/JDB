@@ -17,6 +17,10 @@ public class SoundEffect : MonoBehaviour {
 
     [Tooltip("扉の開く音")]
     public AudioClip OpenDoor;
+    [Space(8)]
+
+    [Tooltip("心音")]
+    public AudioClip HeartBeat;
 
 	// Use this for initialization
 	void Start () {

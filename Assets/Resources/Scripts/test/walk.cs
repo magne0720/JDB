@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class walk : MonoBehaviour {
     AudioSource audio;
-    SoundEffect SE;
+    public AudioClip Walk;
+    public AudioClip Dash;
     int WalkState = 0;
     bool walking;
 	// Use this for initialization
 	void Start () {
         audio = GetComponent<AudioSource>();
-        SE = GameObject.Find("SEtest").GetComponent<SoundEffect>();
 	}
 	
 	// Update is called once per frame
@@ -38,9 +38,9 @@ public class walk : MonoBehaviour {
         switch(WalkState)
         {
             case 0:audio.clip = null; break;
-            case 1:if(audio.clip != SE.Walk) audio.clip = SE.Walk;
+            case 1:if(audio.clip != Walk) audio.clip = Walk;
                 break;
-            case 2:if(audio.clip != SE.Dash)audio.clip = SE.Dash;
+            case 2:if(audio.clip != Dash)audio.clip = Dash;
                 break;
 
             default: break;
