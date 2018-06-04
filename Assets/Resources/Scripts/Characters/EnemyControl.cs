@@ -52,6 +52,10 @@ public class EnemyControl : IsRendered {
         {
             gameObject.layer = 10;
         }
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            Caption();  
+        }
         debugdis = Vector3.Distance(transform.localPosition, loiter);
         //------------------------------
 
@@ -88,7 +92,7 @@ public class EnemyControl : IsRendered {
                 {
                     //WallSearch();
                     transform.LookAt( player.transform.localPosition);
-                    transform.Translate(new Vector3(0, 0, speed * Time.deltaTime));
+                    transform.Translate(new Vector3(0, 0, speed*1.25f * Time.deltaTime));
                     if (Vector3.Distance(transform.position, player.transform.position) > 7.0f)
                     {
                         player = null;
@@ -103,7 +107,7 @@ public class EnemyControl : IsRendered {
             case ENEM_STATUS.ATTACK:
                 break;
             case ENEM_STATUS.STOP:
-                WallSearch();
+                ChangeStateReservation(ENEM_STATUS.WALK, 5);
                 break;
             default:
                 break;
@@ -129,6 +133,7 @@ public class EnemyControl : IsRendered {
                 case ENEM_STATUS.ATTACK:
                     break;
                 case ENEM_STATUS.STOP:
+                    ChangeStateReservation(ENEM_STATUS.STAND, 5);
                     break;
                 default:
                     break;
@@ -173,7 +178,8 @@ public class EnemyControl : IsRendered {
         Ray ray = new Ray(transform.position, transform.forward);
         RaycastHit hit;
 
-        if (Physics.BoxCast(transform.position,transform.localScale,transform.forward,out hit))
+        //5.0fはデバッグの大きさ
+        if (Physics.BoxCast(transform.position,Vector3.one*5.0f,transform.forward,out hit))
         {
             //Debug.Log("HIT," + hit.collider.gameObject.name);
             if (hit.collider.gameObject.tag == "Player")
@@ -192,9 +198,9 @@ public class EnemyControl : IsRendered {
     }
     public void Damage()
     {
-        ChangeState(ENEM_STATUS.STAND);
+        ChangeStateReservation(ENEM_STATUS.STOP);
         Debug.Log("Damage");
-        transform.Translate(Vector3.up);
+        //transform.Translate(Vector3.up);
     }
 
     //設定したtimerを超えると次の状態に移行

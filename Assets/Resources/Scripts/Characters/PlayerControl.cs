@@ -50,9 +50,16 @@ public class PlayerControl : MonoBehaviour {
         }
       
     }
-    void Move(Vector2 target)
+    void Move(Vector2 target,bool isDash=false)
     {
-        transform.Translate(target.x * Time.deltaTime, 0, target.y * Time.deltaTime);
+        float speed = 2;
+        if (isDash)
+        {
+            speed *= 3.0f;
+        }
+
+        transform.Translate(target.x * Time.deltaTime*speed, 0, target.y * Time.deltaTime*speed);
+        transform.Rotate(new Vector3(0, target.x*Time.deltaTime*speed, 0));
     }
 
     void InputControl()
@@ -120,16 +127,17 @@ public class PlayerControl : MonoBehaviour {
     //テスト用のキーボード操作
     void InputKeyboard()
     {
-        if (!isStickMode)
+        float speed = 3;
+        if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            speed *= 5;
+
+        if (Input.GetKey(KeyCode.W))
         {
-            if (Input.GetKey(KeyCode.W))
-            {
-                transform.Translate(new Vector3(0, 0, Time.deltaTime));
-            }
-            if (Input.GetKey(KeyCode.S))
-            {
-                transform.Translate(new Vector3(0, 0, -Time.deltaTime));
-            }
+            transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
+        }
+        if (Input.GetKey(KeyCode.S))
+        {
+            transform.Translate(new Vector3(0, 0, -Time.deltaTime * speed));
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -142,6 +150,10 @@ public class PlayerControl : MonoBehaviour {
         if (Input.GetMouseButton(0))
         {
             phone.TakePhoto();
+        }
+        if (Input.GetMouseButton(1))
+        {
+            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
         }
         //スティックを動かすモード
         if (Input.GetKeyDown(KeyCode.F))
