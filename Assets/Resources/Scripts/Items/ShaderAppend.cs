@@ -23,6 +23,6 @@ public class ShaderAppend : MonoBehaviour {
     void Update()
     {
 
-        material.SetFloat(matName, Time.time);
+        material.SetFloat(defName, Time.time);
     }
 }

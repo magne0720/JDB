@@ -15750,9 +15750,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 378457655}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6648fd8a4ec561b4eaa15ae39c7d36c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0963bda58d432114b9ba080c518e5bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matName: 
 --- !u!1 &397129028
 GameObject:
   m_ObjectHideFlags: 0
@@ -22925,9 +22926,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 482480155}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6648fd8a4ec561b4eaa15ae39c7d36c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0963bda58d432114b9ba080c518e5bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matName: 
 --- !u!1001 &487810158
 Prefab:
   m_ObjectHideFlags: 0
@@ -42315,9 +42317,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 946342966}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6648fd8a4ec561b4eaa15ae39c7d36c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0963bda58d432114b9ba080c518e5bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matName: 
 --- !u!4 &949389412 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4877279432628014, guid: bd05f0c548d97cc439377858df73f5c0,
@@ -42517,7 +42520,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 35686062}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.626
+  m_Size: 0.703
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -47450,9 +47453,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1201006719}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6648fd8a4ec561b4eaa15ae39c7d36c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0963bda58d432114b9ba080c518e5bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matName: 
 --- !u!1001 &1201808357
 Prefab:
   m_ObjectHideFlags: 0
@@ -59796,9 +59800,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1479221462}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6648fd8a4ec561b4eaa15ae39c7d36c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 0963bda58d432114b9ba080c518e5bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  matName: 
 --- !u!1 &1482876330
 GameObject:
   m_ObjectHideFlags: 0
@@ -89916,10 +89921,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f95bdae81c4883d4d9e7e1b2f05cdbc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Particle: {fileID: 0}
-  isRendered: 0
-  distance: 5
-  audio: {fileID: 2009392846}
 --- !u!4 &2049562994 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4877279432628014, guid: bd05f0c548d97cc439377858df73f5c0,
