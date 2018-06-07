@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
+    protected CharacterController Controller = null;
+
     public PhoneCamera phone;//自撮り棒の先に置かれたカメラ
     public GameObject stick;//自撮り棒
     public GameObject head;//頭
@@ -21,6 +23,7 @@ public class PlayerControl : MonoBehaviour {
     public static bool menu_active;
     // Use this for initialization
     void Start () {
+
         HP = 100;
 
         if (isVRMode)
@@ -44,26 +47,32 @@ public class PlayerControl : MonoBehaviour {
         //InputRightPosition();
         if (!isVRMode)
         {
+            //InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
             InputKeyboard();
             head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
         }
       
     }
-    void Move(Vector2 target,bool isDash=false)
+    void Move(Vector2 target, bool isDash = false)
     {
         float speed = 2;
         if (isDash)
         {
             speed *= 3.0f;
         }
+        if (target.y < 0)
+        {
+            target.x *= -1;
+        }
 
-        transform.Translate(target.x * Time.deltaTime*speed, 0, target.y * Time.deltaTime*speed);
-        transform.Rotate(new Vector3(0, target.x*Time.deltaTime*speed, 0));
+        transform.Translate(0, 0, target.y * Time.deltaTime * speed*3);
+        transform.Rotate(new Vector3(0, target.x * speed / 2, 0));
     }
 
     void InputControl()
     {
+        bool dash = false;
+
         if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
             Debug.Log("Aボタンを押した");
@@ -102,16 +111,18 @@ public class PlayerControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
         {
             Debug.Log("左人差し指トリガーを押した");
+            dash = true;
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
+            dash = true;
             Debug.Log("左中指トリガーを押した");
         }
         //スティック
         // 左手のアナログスティックの向きを取得
         Vector2 stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
         //移動
-        Move(stickL);
+        Move(stickL,dash);
         
         // 右手のアナログスティックの向きを取得
         Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
@@ -127,17 +138,30 @@ public class PlayerControl : MonoBehaviour {
     //テスト用のキーボード操作
     void InputKeyboard()
     {
-        float speed = 3;
+        Vector2 vector = new Vector3();
+        bool dash = false;
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-            speed *= 5;
+            dash = true;
+
+
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
+            vector.y += 1.0f;
+            //transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(0, 0, -Time.deltaTime * speed));
+            //transform.Translate(new Vector3(0, 0, -Time.deltaTime * speed));
+            vector.y -= 1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            vector.x -= 1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            vector.x += 1;
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -170,6 +194,8 @@ public class PlayerControl : MonoBehaviour {
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
         stick.transform.position = head.transform.forward*dis +transform.position;
+
+        Move(vector, dash);
     }
     //左手に触れたアイテムを左手が持つ（タグ条件）
     void CatchLeftHand(string tagname)

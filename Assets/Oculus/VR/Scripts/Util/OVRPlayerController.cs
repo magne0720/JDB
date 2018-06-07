@@ -475,7 +475,7 @@ public class OVRPlayerController : MonoBehaviour
 			root.rotation = prevRot;
 		}
 
-		UpdateController();
+		//UpdateController();
 		if (TransformUpdated != null)
 		{
 			TransformUpdated(root);
