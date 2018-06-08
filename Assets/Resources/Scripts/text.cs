@@ -11,6 +11,7 @@ public class text : MonoBehaviour
     string[] textLine;  //テキストを分割したものを代入
     int currentLine;//表示するテキストの番号
 
+
     Text TextBox;        //テキストのオブジェクト
 
     int backLine = 0;   //戻る行数
@@ -30,6 +31,10 @@ public class text : MonoBehaviour
 
     void Update()
     {
+        if (Input.GetMouseButton(0))
+        {
+            Debug.Log("DDD");
+        }
         if (Input.GetKeyUp(KeyCode.Return))
         {
             Debug.Log("enter");
@@ -55,6 +60,8 @@ public class text : MonoBehaviour
         TextOrigine = Resources.Load<TextAsset>("text/" + title);   //テキストを取得
         string[] serch = { "@@" };                              //テキストの分割条件
         textLine = TextOrigine.text.Split(serch, System.StringSplitOptions.RemoveEmptyEntries); //配列に代入
+        
+
         setText();
 
         for (int i = 0; i < textLine.Length; ++i)
