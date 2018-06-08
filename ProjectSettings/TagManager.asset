@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - PhoneCamera
+  - Horror
+  - Wall
+  - HorrorItem
+  - Glass
   layers:
   - Default
   - TransparentFX
@@ -13,11 +18,11 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Ghost
+  - RealGhost
+  - HidePlayer
+  - MenuUI
   - 
   - 
   - 

@@ -1,0 +1,32 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Oculus/VR/Plugins/1.24.0/Win64/OVRPlugin.dll.meta:Assets/Oculus/VR/Plugins/1.24.0/Win64/OVRPlugin.dll.meta
+guid: 7af1ab12194d04648b175347a40c909b
+timeCreated: 1519421176
+licenseType: Store
+=======
+guid: 8499aed3cc351ca48922cc33d297078d
+timeCreated: 1525669218
+licenseType: Pro
+>>>>>>> 55d2c10381a2ffb0e61ff6ff5de14f844ecdff87:Assets/Oculus/VR/Plugins/1.25.0/Win64/OVRPlugin.dll.meta:Assets/Oculus/VR/Plugins/1.25.0/Win64/OVRPlugin.dll.meta
+PluginImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  iconMap: {}
+  executionOrder: {}
+  isPreloaded: 0
+  isOverridable: 0
+  platformData:
+  - first:
+      Any: 
+    second:
+      enabled: 1
+      settings: {}
+  - first:
+      Editor: Editor
+    second:
+      enabled: 0
+      settings:
+        DefaultValueInitialized: true
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
