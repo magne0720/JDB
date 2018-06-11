@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class HeartBeat : MonoBehaviour {
     AudioSource audio;
-    SoundEffect SE;
 
     //[Header("距離を測る敵のタグ名")]
     //public string Enemy_tag = null;
-    public GameObject Enemy;
+    //public GameObject Enemy;
 
     float distance;
     float timer;
+    //public float BeatRange;
+    [Range (20,60)]
+    public float BeatSpeed;
     // Use this for initialization
     void Start () {
         audio = GetComponent<AudioSource>();
@@ -20,20 +22,22 @@ public class HeartBeat : MonoBehaviour {
     // Update is called once per frame
     void Update () {
             timer += Time.deltaTime;
-        if (distance < 60)
-        {
-            if (distance < 20) distance = 20;
-            if (timer >= distance / 60)
+        //if (distance < BeatRange)
+        //{
+        //    if (distance < BeatRange / 2) BeatSpeed = BeatSpeed = 45;
+        //    if (distance < BeatRange / 2) BeatSpeed = BeatSpeed = 45;
+
+            if (timer >= BeatSpeed / 60)
             {
                 audio.Play();
                 timer = 0;
             }
-        }
+        //}
 		
 	}
 
-    void distance_calc()
-    {
-        distance = Vector3.Distance(this.transform.position, Enemy.transform.position);
-    }
+    //void distance_calc()
+    //{
+    //    distance = Vector3.Distance(this.transform.position, Enemy.transform.position);
+    //}
 }

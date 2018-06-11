@@ -132,3 +132,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69a2c175d19e6954e9c7c3a8a1c1a64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Walk: {fileID: 8300000, guid: c552f4cf7b9ee9043bb5a1dd31e8030b, type: 3}
+  Dash: {fileID: 8300000, guid: c6308c30c9e95884c94a5392d38b0ed6, type: 3}
