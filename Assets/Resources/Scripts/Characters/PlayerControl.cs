@@ -14,7 +14,7 @@ public class PlayerControl : MonoBehaviour {
 
     public float HP;
 
-    public Vector3 forward;
+    public Vector3 forward;//ユーザーの胸板の方向
     public float dis;
 
     public bool isVRMode;
@@ -23,6 +23,8 @@ public class PlayerControl : MonoBehaviour {
     public static bool menu_active;
     // Use this for initialization
     void Start () {
+
+        forward = transform.forward;
 
         HP = 100;
 
@@ -47,7 +49,7 @@ public class PlayerControl : MonoBehaviour {
         //InputRightPosition();
         if (!isVRMode)
         {
-            //InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
+            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
             InputKeyboard();
             head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
@@ -64,9 +66,13 @@ public class PlayerControl : MonoBehaviour {
         {
             target.x *= -1;
         }
-
-        transform.Translate(0, 0, target.y * Time.deltaTime * speed*3);
-        transform.Rotate(new Vector3(0, target.x * speed / 2, 0));
+        if (target.y > -0.2f && target.y < 0.2f)
+        {
+            target.y = 0;
+        }
+        transform.Translate(0,0,target.y*speed*Time.deltaTime);
+        //forward = getDirectionDegree(forward, target.x / 2, 1);
+        //transform.LookAt(new Vector3(forward.x-transform.position.x, transform.position.y, forward.z-transform.position.z));
     }
 
     void InputControl()
