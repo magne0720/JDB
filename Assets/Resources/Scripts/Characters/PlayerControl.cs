@@ -22,10 +22,12 @@ public class PlayerControl : MonoBehaviour {
 
     public bool isVRMode;
     public bool isStickMode;
+    private bool isMoving;
 
     public static bool menu_active;
     // Use this for initialization
     void Start () {
+        isMoving = false;
 
         forward = transform.forward;
 
@@ -63,7 +65,7 @@ public class PlayerControl : MonoBehaviour {
         float speed = 2;
         if (isDash)
         {
-            speed *= 3.0f;
+            speed *= 2.0f;
         }
         if (target.y < 0)
         {
@@ -73,7 +75,14 @@ public class PlayerControl : MonoBehaviour {
         {
             target.y = 0;
         }
-        transform.Translate(targetPosition.normalized*Time.deltaTime);
+        if (isMoving)
+        {
+            transform.position += ((targetPosition - transform.position).normalized * speed * Time.deltaTime);
+        }
+        if (target.y < -0.5f)
+        {
+            isMoving = false;
+        }
         //transform.Translate(0,0,target.y*speed*Time.deltaTime);
         //forward = getDirectionDegree(forward, target.x / 2, 1);
         //transform.LookAt(new Vector3(forward.x-transform.position.x, transform.position.y, forward.z-transform.position.z));
@@ -122,6 +131,10 @@ public class PlayerControl : MonoBehaviour {
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
         {
             Debug.Log("左人差し指トリガーを押した");
+            SetTarget();
+        }
+        if (OVRInput.Get(OVRInput.RawButton.LHandTrigger))
+        {
             dash = true;
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
@@ -200,7 +213,7 @@ public class PlayerControl : MonoBehaviour {
         //{
         //    transform.position = rightHand.GetComponent<RightHand>().GetTargetPosition();
         //}
-        if (Input.GetKeyDown(KeyCode.I))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             SetTarget();
         }
@@ -294,6 +307,8 @@ public class PlayerControl : MonoBehaviour {
     //移動先の決定
     void SetTarget()
     {
+        Debug.Log("setTarget");
         targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
+        isMoving ^= true;
     }
 }

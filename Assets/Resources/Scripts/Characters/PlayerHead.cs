@@ -18,10 +18,10 @@ public class PlayerHead : MonoBehaviour {
     {
         ray = new Ray(transform.position, transform.forward);
         Debug.DrawRay(transform.position, transform.forward);
-        if (Physics.Raycast(ray, out hit, 5.0f))
+        if (Physics.Raycast(ray, out hit, 100.0f)) 
         {
-            Debug.Log("Ray" + hit.transform.position);
-            target = hit.transform.position;
+            Debug.Log("Ray1" + hit.transform.position);
+            target = hit.point;
         }
     }
     public Vector3 GetTargetPosition()
