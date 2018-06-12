@@ -10706,6 +10706,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Damage: {fileID: 2100000, guid: 3fafe4406992c714899f3967f83596a6, type: 2}
   Depth: 0
+--- !u!114 &1310080716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1310080710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28908bad24efb6d4390c1bedf406a3d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
 --- !u!1 &1311716782
 GameObject:
   m_ObjectHideFlags: 0
@@ -14791,7 +14803,8 @@ MonoBehaviour:
   stick: {fileID: 1367569630}
   head: {fileID: 1310080710}
   leftHand: {fileID: 1680483436}
-  rightHand: {fileID: 0}
+  rightHand: {fileID: 565793821}
+  targetPosition: {x: 0, y: 0, z: 0}
   HP: 0
   forward: {x: 0, y: 0, z: 0}
   dis: 0

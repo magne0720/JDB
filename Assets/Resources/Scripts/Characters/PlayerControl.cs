@@ -13,6 +13,7 @@ public class PlayerControl : MonoBehaviour {
     public GameObject leftHand;//左手
     public GameObject rightHand;//右手
 
+    public Vector3 targetPosition;
 
     public float HP;
 
@@ -72,7 +73,8 @@ public class PlayerControl : MonoBehaviour {
         {
             target.y = 0;
         }
-        transform.Translate(0,0,target.y*speed*Time.deltaTime);
+        transform.Translate(targetPosition.normalized*Time.deltaTime);
+        //transform.Translate(0,0,target.y*speed*Time.deltaTime);
         //forward = getDirectionDegree(forward, target.x / 2, 1);
         //transform.LookAt(new Vector3(forward.x-transform.position.x, transform.position.y, forward.z-transform.position.z));
     }
@@ -194,6 +196,14 @@ public class PlayerControl : MonoBehaviour {
             if (isStickMode) isStickMode = false;
             else isStickMode = true;
         }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    transform.position = rightHand.GetComponent<RightHand>().GetTargetPosition();
+        //}
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            SetTarget();
+        }
 
         if (!menu_active && (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.RawButton.Back)))
         {
@@ -280,5 +290,10 @@ public class PlayerControl : MonoBehaviour {
         {
             HP -= 1;
         }
+    }
+    //移動先の決定
+    void SetTarget()
+    {
+        targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
     }
 }
