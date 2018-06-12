@@ -11,6 +11,8 @@ public class PlayerControl : MonoBehaviour {
     public GameObject stick;//自撮り棒
     public GameObject head;//頭
     public GameObject leftHand;//左手
+    public GameObject rightHand;//右手
+
 
     public float HP;
 
@@ -112,6 +114,7 @@ public class PlayerControl : MonoBehaviour {
         }
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
+            transform.position=rightHand.GetComponent<RightHand>().GetTargetPosition();
             Debug.Log("右中指トリガーを押した");
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
