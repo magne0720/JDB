@@ -857,6 +857,11 @@ Prefab:
       propertyPath: Dash
       value: 
       objectReference: {fileID: 8300000, guid: c6308c30c9e95884c94a5392d38b0ed6, type: 3}
+    - target: {fileID: 82639733468124358, guid: b1deceae4b0c8884ca450129301172d0,
+        type: 2}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 0.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b1deceae4b0c8884ca450129301172d0, type: 2}
   m_IsPrefabParent: 0
@@ -1303,7 +1308,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1593043812
 MonoBehaviour:
   m_ObjectHideFlags: 0

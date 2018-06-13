@@ -8,7 +8,8 @@ public class HeartBeat : MonoBehaviour {
     //[Header("距離を測る敵のタグ名")]
     //public string Enemy_tag = null;
     //public GameObject Enemy;
-
+    [Header("心音のオンオフ")]
+    public bool OnHeartBeat = false;
     float distance;
     float timer;
     //public float BeatRange;
@@ -26,12 +27,14 @@ public class HeartBeat : MonoBehaviour {
         //{
         //    if (distance < BeatRange / 2) BeatSpeed = BeatSpeed = 45;
         //    if (distance < BeatRange / 2) BeatSpeed = BeatSpeed = 45;
-
+        if (OnHeartBeat)
+        {
             if (timer >= BeatSpeed / 60)
             {
                 audio.Play();
                 timer = 0;
             }
+        }
         //}
 		
 	}
