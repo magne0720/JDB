@@ -1198,6 +1198,7 @@ GameObject:
   - component: {fileID: 807471150}
   - component: {fileID: 807471149}
   - component: {fileID: 807471153}
+  - component: {fileID: 807471154}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1274,12 +1275,25 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 807471148}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3ff9f3e8565b6924ca77b5cb56fc9c0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: {fileID: 2100000, guid: 3fafe4406992c714899f3967f83596a6, type: 2}
+  Depth: 1.2
+--- !u!114 &807471154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 807471148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24201ec874caa1742ad510046a9ab5cf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsoNoise: {fileID: 2100000, guid: 33baef2edac2caf48a435ad1222c8dda, type: 2}
 --- !u!1 &851250862
 GameObject:
   m_ObjectHideFlags: 0
