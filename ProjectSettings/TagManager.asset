@@ -9,6 +9,7 @@ TagManager:
   - Wall
   - HorrorItem
   - Glass
+  - TV
   layers:
   - Default
   - TransparentFX
