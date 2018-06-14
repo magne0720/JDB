@@ -15,9 +15,9 @@ public class walk : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.W) || OVRInput.Get(OVRInput.RawAxis2D.LThumbstick) != Vector2.zero)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift)|| Input.GetKey(KeyCode.RightShift) || OVRInput.Get(OVRInput.RawButton.LIndexTrigger))
             {
                 WalkState = 2;
             }

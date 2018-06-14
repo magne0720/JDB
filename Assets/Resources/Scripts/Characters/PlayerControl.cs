@@ -5,22 +5,32 @@ using UnityEngine.SceneManagement;
 
 public class PlayerControl : MonoBehaviour {
 
+    protected CharacterController Controller = null;
+
     public PhoneCamera phone;//自撮り棒の先に置かれたカメラ
     public GameObject stick;//自撮り棒
     public GameObject head;//頭
     public GameObject leftHand;//左手
+    public GameObject rightHand;//右手
+
+    public Vector3 targetPosition;
 
     public float HP;
 
-    public Vector3 forward;
+    public Vector3 forward;//ユーザーの胸板の方向
     public float dis;
 
     public bool isVRMode;
     public bool isStickMode;
+    private bool isMoving;
 
     public static bool menu_active;
     // Use this for initialization
     void Start () {
+        isMoving = false;
+
+        forward = transform.forward;
+
         HP = 100;
 
         if (isVRMode)
@@ -44,26 +54,47 @@ public class PlayerControl : MonoBehaviour {
         //InputRightPosition();
         if (!isVRMode)
         {
+            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
             InputKeyboard();
             head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
-            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
         }
       
     }
-    void Move(Vector2 target,bool isDash=false)
+    void Move(Vector2 target, bool isDash = false)
     {
         float speed = 2;
         if (isDash)
         {
-            speed *= 3.0f;
+            speed *= 2.0f;
         }
-
-        transform.Translate(target.x * Time.deltaTime*speed, 0, target.y * Time.deltaTime*speed);
-        transform.Rotate(new Vector3(0, target.x*Time.deltaTime*speed, 0));
+        if (target.y < 0)
+        {
+            target.x *= -1;
+        }
+        if (target.y > -0.2f && target.y < 0.2f)
+        {
+            target.y = 0;
+        }
+        if (isMoving)
+        {
+            if (Vector3.Distance(transform.position, targetPosition) < 1.0f)
+            {
+                transform.position += ((targetPosition - transform.position).normalized * speed * Time.deltaTime);
+            }
+        }
+        if (target.y < -0.5f)
+        {
+            isMoving = false;
+        }
+        //transform.Translate(0,0,target.y*speed*Time.deltaTime);
+        //forward = getDirectionDegree(forward, target.x / 2, 1);
+        //transform.LookAt(new Vector3(forward.x-transform.position.x, transform.position.y, forward.z-transform.position.z));
     }
 
     void InputControl()
     {
+        bool dash = false;
+
         if (OVRInput.GetDown(OVRInput.RawButton.A))
         {
             Debug.Log("Aボタンを押した");
@@ -97,21 +128,28 @@ public class PlayerControl : MonoBehaviour {
         }
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
+            transform.position=rightHand.GetComponent<RightHand>().GetTargetPosition();
             Debug.Log("右中指トリガーを押した");
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
         {
             Debug.Log("左人差し指トリガーを押した");
+            SetTarget();
+        }
+        if (OVRInput.Get(OVRInput.RawButton.LHandTrigger))
+        {
+            dash = true;
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
+            dash = true;
             Debug.Log("左中指トリガーを押した");
         }
         //スティック
         // 左手のアナログスティックの向きを取得
         Vector2 stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
         //移動
-        Move(stickL);
+        Move(stickL,dash);
         
         // 右手のアナログスティックの向きを取得
         Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
@@ -127,17 +165,30 @@ public class PlayerControl : MonoBehaviour {
     //テスト用のキーボード操作
     void InputKeyboard()
     {
-        float speed = 3;
+        Vector2 vector = new Vector3();
+        bool dash = false;
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-            speed *= 5;
+            dash = true;
+
+
 
         if (Input.GetKey(KeyCode.W))
         {
-            transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
+            vector.y += 1.0f;
+            //transform.Translate(new Vector3(0, 0, Time.deltaTime * speed));
         }
         if (Input.GetKey(KeyCode.S))
         {
-            transform.Translate(new Vector3(0, 0, -Time.deltaTime * speed));
+            //transform.Translate(new Vector3(0, 0, -Time.deltaTime * speed));
+            vector.y -= 1;
+        }
+        if (Input.GetKey(KeyCode.A))
+        {
+            vector.x -= 1;
+        }
+        if (Input.GetKey(KeyCode.D))
+        {
+            vector.x += 1;
         }
         if (Input.GetKeyDown(KeyCode.P))
         {
@@ -161,6 +212,14 @@ public class PlayerControl : MonoBehaviour {
             if (isStickMode) isStickMode = false;
             else isStickMode = true;
         }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    transform.position = rightHand.GetComponent<RightHand>().GetTargetPosition();
+        //}
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            SetTarget();
+        }
 
         if (!menu_active && (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.RawButton.Back)))
         {
@@ -170,6 +229,8 @@ public class PlayerControl : MonoBehaviour {
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
         stick.transform.position = head.transform.forward*dis +transform.position;
+
+        Move(vector, dash);
     }
     //左手に触れたアイテムを左手が持つ（タグ条件）
     void CatchLeftHand(string tagname)
@@ -245,5 +306,12 @@ public class PlayerControl : MonoBehaviour {
         {
             HP -= 1;
         }
+    }
+    //移動先の決定
+    void SetTarget()
+    {
+        Debug.Log("setTarget");
+        targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
+        isMoving ^= true;
     }
 }

@@ -23,7 +23,7 @@
 		fixed4 frag(v2f_img i) : COLOR{
 
 		float n = random(i.uv * _T);
-		float speed = 1;//秒換算
+		float speed = 1.3;//秒換算
 
 		//ピクセル取得
 		fixed4 c = tex2D(_MainTex, i.uv);
