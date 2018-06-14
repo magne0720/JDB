@@ -77,7 +77,10 @@ public class PlayerControl : MonoBehaviour {
         }
         if (isMoving)
         {
-            transform.position += ((targetPosition - transform.position).normalized * speed * Time.deltaTime);
+            if (Vector3.Distance(transform.position, targetPosition) < 1.0f)
+            {
+                transform.position += ((targetPosition - transform.position).normalized * speed * Time.deltaTime);
+            }
         }
         if (target.y < -0.5f)
         {
