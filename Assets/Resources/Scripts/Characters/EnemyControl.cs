@@ -185,6 +185,7 @@ public class EnemyControl : IsRendered {
             if (hit.collider.gameObject.tag == "Player")
             {
                 player = hit.collider.gameObject;
+                player.GetComponent<PlayerControl>().Found();
             }
             if (player != null)
             {

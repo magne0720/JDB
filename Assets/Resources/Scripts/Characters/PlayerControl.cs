@@ -12,6 +12,7 @@ public class PlayerControl : MonoBehaviour {
     public GameObject head;//頭
     public GameObject leftHand;//左手
     public GameObject rightHand;//右手
+    public PostEffect post;//見つかった演出のスクリプト
 
     public Vector3 targetPosition;
 
@@ -20,9 +21,10 @@ public class PlayerControl : MonoBehaviour {
     public Vector3 forward;//ユーザーの胸板の方向
     public float dis;
 
-    public bool isVRMode;
-    public bool isStickMode;
-    private bool isMoving;
+    public bool isVRMode;//VRモードかどうか
+    public bool isStickMode;//非VRモード時、自撮り棒を回転させるか
+    private bool isMoving;//現在、移動中か
+    private bool isFound;//敵に見つかっているか
 
     public static bool menu_active;
     // Use this for initialization
@@ -169,8 +171,7 @@ public class PlayerControl : MonoBehaviour {
         bool dash = false;
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             dash = true;
-
-
+        
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -253,6 +254,21 @@ public class PlayerControl : MonoBehaviour {
             stick.transform.rotation = Quaternion.Euler(new Vector3(forward.y, forward.x, 0));
         }
     }
+    public void Found()
+    {
+        isFound = true;
+        post.Depth = 1.5f;
+    }
+
+    //画面の色遷移
+    void ChangeTension()
+    {
+        if (isFound)
+        {
+            post.Depth = 1.5f;
+        }
+    }
+
     void OpenMenu()
     {
         SceneManager.LoadScene("MenuScene", LoadSceneMode.Additive);
