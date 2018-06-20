@@ -2,11 +2,11 @@
 {
 	Properties
 	{
-		_MainTex("Texture", 2D) = "white" {}
+		_MainTex("Texture", 2D) = "" {}
 	}
 		SubShader
 	{
-		Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" }
+		Tags{ "RenderType" = "Transparent" "Queue" = "Transparent" "LightMode" = "ForwardBase" }
 		LOD 100
 		Cull off
 		Blend SrcAlpha OneMinusSrcAlpha

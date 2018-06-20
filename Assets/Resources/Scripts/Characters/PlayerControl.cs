@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.AI;
 
 public class PlayerControl : MonoBehaviour {
 
@@ -17,6 +18,7 @@ public class PlayerControl : MonoBehaviour {
     public Vector3 targetPosition;
 
     public float HP;
+    public float SPEED;
 
     public Vector3 forward;//ユーザーの胸板の方向
     public float dis;
@@ -26,9 +28,13 @@ public class PlayerControl : MonoBehaviour {
     private bool isMoving;//現在、移動中か
     private bool isFound;//敵に見つかっているか
 
+    private NavMeshAgent agent;
+
     public static bool menu_active;
     // Use this for initialization
     void Start () {
+        agent = GetComponent<NavMeshAgent>();
+
         isMoving = false;
 
         forward = transform.forward;
@@ -46,6 +52,8 @@ public class PlayerControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
+        agent.speed = SPEED;
+
         //HPなくなったら
         if (HP <= 0)
         {
@@ -77,13 +85,13 @@ public class PlayerControl : MonoBehaviour {
         {
             target.y = 0;
         }
-        if (isMoving)
-        {
-            if (Vector3.Distance(transform.position, targetPosition) < 1.0f)
-            {
-                transform.position += ((targetPosition - transform.position).normalized * speed * Time.deltaTime);
-            }
-        }
+        //if (isMoving)
+        //{
+        //    if (Vector3.Distance(transform.position, targetPosition) < 1.0f)
+        //    {
+        //        transform.position += ((targetPosition - transform.position).normalized * speed * Time.deltaTime);
+        //    }
+        //}
         if (target.y < -0.5f)
         {
             isMoving = false;
@@ -203,9 +211,9 @@ public class PlayerControl : MonoBehaviour {
         {
             phone.TakePhoto();
         }
-        if (Input.GetMouseButton(1))
+        if (Input.GetMouseButtonDown(1))
         {
-            InputCameraMoment(Input.GetAxis("CameraX"), Input.GetAxis("CameraY"));
+            SetTarget();
         }
         //スティックを動かすモード
         if (Input.GetKeyDown(KeyCode.F))
@@ -231,7 +239,7 @@ public class PlayerControl : MonoBehaviour {
         dis += mad;
         stick.transform.position = head.transform.forward*dis +transform.position;
 
-        Move(vector, dash);
+        //Move(vector, dash);
     }
     //左手に触れたアイテムを左手が持つ（タグ条件）
     void CatchLeftHand(string tagname)
@@ -329,5 +337,7 @@ public class PlayerControl : MonoBehaviour {
         Debug.Log("setTarget");
         targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
         isMoving ^= true;
+
+        agent.destination = targetPosition;
     }
 }

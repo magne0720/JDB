@@ -10,7 +10,7 @@ public class Result : MonoBehaviour
     public static GameObject gCanvas;
     public static GameObject imageObj;
     public static List<GameObject> Gallery;
-    public static List<GameObject> HorrorItems;
+    public static List<GameObject> CameraPhotoTargets;
     public const float CaptionDis = 10.0f;//写真を撮った時に被写体として受け入れる距離
 
     // Use this for initialization
@@ -28,12 +28,12 @@ public class Result : MonoBehaviour
             Debug.Log("Not imageObj");
         }
         Gallery = new List<GameObject>();
-        HorrorItems = new List<GameObject>();
-        foreach (GameObject g in GameObject.FindGameObjectsWithTag("HorrorItem"))
-        {
-            HorrorItems.Add(g);
-            Debug.Log("<color=green>" + g.name + "</color>");
-        }
+        CameraPhotoTargets = new List<GameObject>();
+        //foreach (GameObject g in GameObject.FindGameObjectsWithTag("HorrorItem"))
+        //{
+        //    CameraPhotoTargets.Add(g);
+        //    Debug.Log("<color=green>" + g.name + "</color>");
+        //}
     }
 
     // Update is called once per frame
@@ -74,9 +74,9 @@ public class Result : MonoBehaviour
     }
     public static void GhostCheck(Vector3 camPos)
     {
-        if (HorrorItems.Count > 0)
-            Debug.Log("count"+HorrorItems.Count);
-            foreach (GameObject g in HorrorItems)
+        if (CameraPhotoTargets.Count > 0)
+            Debug.Log("count"+CameraPhotoTargets.Count);
+            foreach (GameObject g in CameraPhotoTargets)
             {
                 if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
                 {
@@ -88,5 +88,10 @@ public class Result : MonoBehaviour
                     }
                 }
             }
+    }
+    public static void Addtarget(GameObject g)
+    {
+        CameraPhotoTargets.Add(g);
+        Debug.Log("add"+g.name);
     }
 }
