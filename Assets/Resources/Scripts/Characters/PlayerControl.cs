@@ -232,7 +232,7 @@ public class PlayerControl : MonoBehaviour {
 
         if (!menu_active && (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.RawButton.Back)))
         {
-            OpenMenu();
+            //OpenMenu();
         }
 
         float mad = Input.GetAxis("Mouse ScrollWheel");
