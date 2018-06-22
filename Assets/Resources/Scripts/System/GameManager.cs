@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour {
             case GAME_MODE.TITLE:
                 if (StartButton.isCaption)
                 {
-                    gameMode = GAME_MODE.GAME;
+                    GameStart();
                 }
                 break;
             //ゲーム中
@@ -65,5 +65,22 @@ public class GameManager : MonoBehaviour {
             default:
                 break;
         }
+    }
+    //ゲーム開始の初期化
+    void GameStart()
+    {
+        gameMode = GAME_MODE.GAME;
+    }
+
+    //ゲームオーバー時
+    void GameOver()
+    {
+
+    }
+
+    //ポーズ時の変更
+    void Pause()
+    {
+
     }
 }

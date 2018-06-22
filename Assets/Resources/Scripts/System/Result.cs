@@ -13,6 +13,12 @@ public class Result : MonoBehaviour
     public static List<GameObject> CameraPhotoTargets;
     public const float CaptionDis = 10.0f;//写真を撮った時に被写体として受け入れる距離
 
+    void Awake()
+    {
+        Gallery = new List<GameObject>();
+        CameraPhotoTargets = new List<GameObject>();
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -27,8 +33,7 @@ public class Result : MonoBehaviour
         {
             Debug.Log("Not imageObj");
         }
-        Gallery = new List<GameObject>();
-        CameraPhotoTargets = new List<GameObject>();
+        
         //foreach (GameObject g in GameObject.FindGameObjectsWithTag("HorrorItem"))
         //{
         //    CameraPhotoTargets.Add(g);
@@ -74,20 +79,22 @@ public class Result : MonoBehaviour
     }
     public static void GhostCheck(Vector3 camPos)
     {
+        int count = 0;
         if (CameraPhotoTargets.Count > 0)
-            Debug.Log("count"+CameraPhotoTargets.Count);
-            foreach (GameObject g in CameraPhotoTargets)
+            Debug.Log("count" + CameraPhotoTargets.Count);
+        foreach (GameObject g in CameraPhotoTargets)
+        {
+            //if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
             {
-                if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
-                {
                 IsRendered IR = g.GetComponent<IsRendered>();
                 g.transform.Rotate(new Vector3(0, 10, 0));
-                    if (IR.isRendered)
-                    {
-                        IR.Caption();
-                    }
+                if (IR.isRendered)
+                {
+                    IR.Caption();
                 }
             }
+            count++;
+        }
     }
     public static void Addtarget(GameObject g)
     {
