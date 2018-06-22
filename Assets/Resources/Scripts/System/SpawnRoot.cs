@@ -12,7 +12,7 @@ public class SpawnRoot : MonoBehaviour {
         for (int i = 0; i < transform.childCount; i++)
         {
             GameObject g = transform.GetChild(i).gameObject;
-            roots.Add(g);
+            roots.Add(g.transform.position);
         }
     }
 	
