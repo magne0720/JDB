@@ -46,7 +46,7 @@ public class HorrorItem : IsRendered {
         base.Update();
     }
 
-    public override void Caption()
+    public override bool Caption()
     {
         Debug.Log(gameObject.name + ",<color=red>Caption!!!</color>");
         if (!isCaption)
@@ -61,5 +61,6 @@ public class HorrorItem : IsRendered {
                 GetComponent<AudioSource>().Play();
             }
         }
+        return false;
     }
 }

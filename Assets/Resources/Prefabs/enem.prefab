@@ -22,8 +22,9 @@ GameObject:
   - component: {fileID: 33546593508450680}
   - component: {fileID: 136369816662876050}
   - component: {fileID: 23506766100379488}
-  - component: {fileID: 114064294938383076}
-  m_Layer: 0
+  - component: {fileID: 195506022827359986}
+  - component: {fileID: 114039381743142490}
+  m_Layer: 9
   m_Name: enem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -84,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1523000685498364}
   m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &114064294938383076
+--- !u!114 &114039381743142490
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -99,17 +100,11 @@ MonoBehaviour:
   Particle: {fileID: 0}
   isRendered: 0
   isCaption: 0
-  speed: 0
+  points: []
   player: {fileID: 0}
-  loiterCount: 0
-  myPos: {x: 0, y: 0, z: 0}
-  loiter: {x: 0, y: 0, z: 0}
-  debugdis: 0
-  loiteringPoints: []
-  currentStatus: 0
-  nextStatus: 0
-  StateTimer: 0
-  ProgressTimer: 0
+  destPoint: 0
+  isNext: 0
+  NextTimer: 0
 --- !u!136 &136369816662876050
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -123,3 +118,24 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!195 &195506022827359986
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1523000685498364}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 1
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
