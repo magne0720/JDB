@@ -50,10 +50,12 @@ public class IsRendered : MonoBehaviour
         //位置
         //Camera.current.
     }
-    public virtual void Caption()
+    public virtual bool Caption()
     {
         //継承先で変わる
         isCaption = true;
+
+        return false;
     }
     public void InstParticle()
     {
