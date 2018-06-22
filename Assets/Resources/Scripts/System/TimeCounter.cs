@@ -15,6 +15,6 @@ public class TimeCounter : MonoBehaviour {
 	void Update () {
         TimeLimit -= Time.deltaTime;
 
-        Light.transform.Rotate(new Vector3(-Time.deltaTime,0,0));
+        //Light.transform.Rotate(new Vector3(-Time.deltaTime,0,0));
     }
 }
