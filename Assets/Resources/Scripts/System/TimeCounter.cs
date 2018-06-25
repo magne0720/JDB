@@ -18,6 +18,7 @@ public class TimeCounter : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.Return))
         {
             StartTimer(!StartFlag);
+            setTimer(15);
         }
         if (StartFlag) StartTimer();
     }
@@ -33,11 +34,15 @@ public class TimeCounter : MonoBehaviour {
             Debug.Log(ClearFlag);
         }
     }
-    public void setTimer(float t = 30)//制限時間の指定(何も指定なしなら30秒)
+    /// <summary>
+    /// 制限時間の指定がないなら30秒に自動設定
+    /// </summary>
+    /// <param name="t"></param>
+    public void setTimer(float t = 30)
     {
         TimeLimit = t;
     }
-    public void StartTimer(bool b)//trueをsetでタイマースタート
+    public void StartTimer(bool b)//trueで制限時間進、falseでストップ(ポーズ中とか)
     {
         StartFlag = b;
     }
