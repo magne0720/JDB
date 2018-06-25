@@ -4,17 +4,55 @@ using UnityEngine;
 
 public class TimeCounter : MonoBehaviour {
     [Header ("制限時間(秒)")]
-    public float TimeLimit = 90;
-    public GameObject Light;
+    public float TimeLimit;
+    bool StartFlag = false;
+    bool ClearFlag = false;
 	// Use this for initialization
 	void Start () {
-		
+        Application.targetFrameRate = 90;
+        setTimer();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        TimeLimit -= Time.deltaTime;
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            StartTimer(!StartFlag);
+            setTimer(15);
+        }
+        if (StartFlag) StartTimer();
+    }
 
+    void StartTimer()
+    {
+        if (TimeLimit > 0)
+        {
+            TimeLimit -= Time.deltaTime;
+        }else
+        {
+            ClearFlag = true;
+            Debug.Log(ClearFlag);
+        }
+    }
+    /// <summary>
+    /// 制限時間の指定がないなら30秒に自動設定
+    /// </summary>
+    /// <param name="t"></param>
+    public void setTimer(float t = 30)
+    {
+        TimeLimit = t;
+    }
+    public void StartTimer(bool b)//trueで制限時間進、falseでストップ(ポーズ中とか)
+    {
+        StartFlag = b;
+    }
+
+    public void ClearGame()//クリア時の処理
+    {
+
+<<<<<<< HEAD
         //Light.transform.Rotate(new Vector3(-Time.deltaTime,0,0));
+=======
+>>>>>>> origin/サブ枝
     }
 }
