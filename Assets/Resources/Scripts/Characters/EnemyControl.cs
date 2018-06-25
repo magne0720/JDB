@@ -11,16 +11,22 @@ public class EnemyControl : IsRendered {
     protected NavMeshAgent agent;
     public List<Vector3> points;
     public Transform player;
+    public GameObject ExObj;//消滅時に発生させるパーティクル
     public int destPoint;
+    public GameObject LastPointObj;
 
     public bool isSpawn;    //事実上ステージに存在しているか
     public bool isNext;     //指定地点に届き、次の地点に迎える状態か
+    public bool isLastAttack;//最後の攻撃に来たか
     public float NextTimer; //次の地点の指定する時間経過
     public const float LimitTime = 3.0f;//次の地点を指定するまでにかかる時間
+
+    Animator animator;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponent<Animator>();
     }
 
     // Use this for initialization
@@ -28,12 +34,10 @@ public class EnemyControl : IsRendered {
     {
         destPoint = 0;
         player = null;
+        //isNext = true;
+        animator.SetBool("Walk", false);
 
-        //agent.destination = points[destPoint];
-
-        //agent.autoBraking = false;
-
-        isNext = true;
+        LastPointObj = GameObject.Find("EnemyLastPoint");
     }
 
     // Update is called once per frame
@@ -43,6 +47,8 @@ public class EnemyControl : IsRendered {
         if (!agent.pathPending && agent.remainingDistance < 0.5f)
         {
             isNext = true;
+            SetLayerAllChildren(14);
+            animator.SetBool("Walk", false);
         }
 
         if (isNext)
@@ -50,11 +56,25 @@ public class EnemyControl : IsRendered {
             NextTimer += Time.deltaTime;
             if (NextTimer >= LimitTime)
             {
-                GotoNextPoint();
-                isNext = false;
-                NextTimer = 0.0f;
+                if (destPoint >= points.Count-1)
+                {
+                    //ゲームオーバー寸前
+                    LastRoot();
+                    NextTimer = 0.0f;
+                }
+                else
+                {
+                    GotoNextPoint();
+                    InstOrb();
+                    isNext = false;
+                    SetLayerAllChildren(9);
+                    NextTimer = 0.0f;
+                    animator.SetBool("Walk", true);
+                }
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.Q)) Respawn();
 
         //agent.isStopped = false;
     }
@@ -65,13 +85,19 @@ public class EnemyControl : IsRendered {
         // Returns if no points have been set up
         if (points.Count == 0)
             return;
-
+        
         // Set the agent to go to the currently selected destination.
         agent.destination = points[destPoint];
 
         // Choose the next point in the array as the destination,
         // cycling to the start if necessary.
         destPoint = (destPoint + 1) % points.Count;
+
+    }
+
+    void InstOrb()
+    {
+        Instantiate(Particle,transform.position,Quaternion.identity);
     }
     public override bool Caption()
     {
@@ -80,14 +106,54 @@ public class EnemyControl : IsRendered {
 
         isSpawn = false;
 
-
+        Respawn();
 
         return true;
     }
     public void Respawn()
     {
+        Damage();
+
+        Vector3 v=new Vector3();
+        points = SpawnManager.GetSpawnPoints(out v);
+        transform.position = v;
         destPoint = 0;
         agent.destination = points[destPoint];
         isSpawn = true;
+    }
+
+    void LastRoot()
+    {
+        if (isLastAttack)
+        {
+            Attack();
+        }
+
+        isLastAttack = true;
+        //ベッドからのぞくアニメーション
+        transform.position = LastPointObj.transform.position;
+    }
+
+    void Attack()
+    {
+        //この処理が通ったらゲームオーバーにする
+
+    }
+
+    void Damage()
+    {
+        if (ExObj != null)
+        {
+            Instantiate(ExObj, transform.position, Quaternion.identity);
+        }
+    }
+
+    //子オブジェクトのレイヤーをすべて変更する
+    void SetLayerAllChildren(int num)
+    {
+        foreach(Transform t in GetComponentsInChildren<Transform>())
+        {
+            t.gameObject.layer = num;
+        }
     }
 }

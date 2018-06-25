@@ -84,10 +84,9 @@ public class Result : MonoBehaviour
             Debug.Log("count" + CameraPhotoTargets.Count);
         foreach (GameObject g in CameraPhotoTargets)
         {
-            //if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
+            if (Vector3.Distance(camPos, g.transform.position) < CaptionDis)
             {
-                IsRendered IR = g.GetComponent<IsRendered>();
-                g.transform.Rotate(new Vector3(0, 10, 0));
+                IsRendered IR = g.GetComponent<IsRendered>();               
                 if (IR.isRendered)
                 {
                     IR.Caption();

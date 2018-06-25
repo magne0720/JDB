@@ -48,7 +48,6 @@ public class IsRendered : MonoBehaviour
         }
 
         //位置
-        //Camera.current.
     }
     public virtual bool Caption()
     {

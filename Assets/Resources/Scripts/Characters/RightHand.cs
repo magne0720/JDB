@@ -19,7 +19,7 @@ public class RightHand : MonoBehaviour {
         Debug.DrawRay(transform.position, transform.forward);
         if (Physics.Raycast(ray,out hit, 5.0f))
         {
-            Debug.Log("Ray" + hit.transform.position);
+            //Debug.Log("Ray" + hit.transform.position);
             target = hit.transform.position;
         }
     }

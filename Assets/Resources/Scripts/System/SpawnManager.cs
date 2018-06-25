@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnManager : MonoBehaviour {
+public class SpawnManager : MonoBehaviour
+{
 
-    public List<GameObject> SpawnPoints;
+    public static List<GameObject> SpawnPoints;
     public List<GameObject> SpawnEnemys;
     public GameObject SpawnObject;
 
@@ -17,13 +18,14 @@ public class SpawnManager : MonoBehaviour {
             GameObject g = transform.GetChild(i).gameObject;
             SpawnPoints.Add(g);
         }
-        OriginalSpawn(3);
+        OriginalSpawn(1);
     }
-    
-	// Update is called once per frame
-	void Update () {
 
-	}
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public void OriginalSpawn(int num)
     {
@@ -41,7 +43,7 @@ public class SpawnManager : MonoBehaviour {
     }
     public void Spawn()
     {
-        foreach(GameObject g in SpawnEnemys)
+        foreach (GameObject g in SpawnEnemys)
         {
             EnemyControl ec = g.GetComponent<EnemyControl>();
             if (!ec.isSpawn)
@@ -52,5 +54,23 @@ public class SpawnManager : MonoBehaviour {
                 g.transform.position = SpawnPoints[rand].transform.position;
             }
         }
+    }
+    public static List<Vector3> GetSpawnPoints(out Vector3 startPos,int num = -1)
+    {
+        int n = 0;
+        List<Vector3> vecs = new List<Vector3>();
+
+        if (num != -1)
+        {
+            n = num;
+        }
+        else
+        {
+            n = Random.Range(0, SpawnPoints.Count);
+        }
+        vecs = SpawnPoints[n].GetComponent<SpawnRoot>().roots;
+        startPos = SpawnPoints[n].transform.position;
+
+        return vecs;
     }
 }

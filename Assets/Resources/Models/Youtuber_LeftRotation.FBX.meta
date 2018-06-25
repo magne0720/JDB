@@ -1,0 +1,319 @@
+fileFormatVersion: 2
+guid: f5763c08e23c50946837dbc2c7e0edcd
+timeCreated: 1529890998
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Bip
+    100002: Bip Footsteps
+    100004: Bip Head
+    100006: Bip HeadNub
+    100008: Bip L Calf
+    100010: Bip L Clavicle
+    100012: Bip L Finger0
+    100014: Bip L Finger01
+    100016: Bip L Finger02
+    100018: Bip L Finger0Nub
+    100020: Bip L Finger1
+    100022: Bip L Finger11
+    100024: Bip L Finger12
+    100026: Bip L Finger13
+    100028: Bip L Finger1Nub
+    100030: Bip L Finger2
+    100032: Bip L Finger21
+    100034: Bip L Finger22
+    100036: Bip L Finger23
+    100038: Bip L Finger2Nub
+    100040: Bip L Finger3
+    100042: Bip L Finger31
+    100044: Bip L Finger32
+    100046: Bip L Finger33
+    100048: Bip L Finger3Nub
+    100050: Bip L Finger4
+    100052: Bip L Finger41
+    100054: Bip L Finger42
+    100056: Bip L Finger43
+    100058: Bip L Finger4Nub
+    100060: Bip L Foot
+    100062: Bip L Forearm
+    100064: Bip L ForeTwist
+    100066: Bip L ForeTwist1
+    100068: Bip L Hand
+    100070: Bip L Thigh
+    100072: Bip L Toe0
+    100074: Bip L Toe0Nub
+    100076: Bip L UpperArm
+    100078: Bip LThighTwist
+    100080: Bip LThighTwist1
+    100082: Bip LUpArmTwist
+    100084: Bip LUpArmTwist1
+    100086: Bip Neck
+    100088: Bip Pelvis
+    100090: Bip R Calf
+    100092: Bip R Clavicle
+    100094: Bip R Finger0
+    100096: Bip R Finger01
+    100098: Bip R Finger02
+    100100: Bip R Finger0Nub
+    100102: Bip R Finger1
+    100104: Bip R Finger11
+    100106: Bip R Finger12
+    100108: Bip R Finger13
+    100110: Bip R Finger1Nub
+    100112: Bip R Finger2
+    100114: Bip R Finger21
+    100116: Bip R Finger22
+    100118: Bip R Finger23
+    100120: Bip R Finger2Nub
+    100122: Bip R Finger3
+    100124: Bip R Finger31
+    100126: Bip R Finger32
+    100128: Bip R Finger33
+    100130: Bip R Finger3Nub
+    100132: Bip R Finger4
+    100134: Bip R Finger41
+    100136: Bip R Finger42
+    100138: Bip R Finger43
+    100140: Bip R Finger4Nub
+    100142: Bip R Foot
+    100144: Bip R Forearm
+    100146: Bip R ForeTwist
+    100148: Bip R ForeTwist1
+    100150: Bip R Hand
+    100152: Bip R Thigh
+    100154: Bip R Toe0
+    100156: Bip R Toe0Nub
+    100158: Bip R UpperArm
+    100160: Bip RThighTwist
+    100162: Bip RThighTwist1
+    100164: Bip RUpArmTwist
+    100166: Bip RUpArmTwist1
+    100168: Bip Spine
+    100170: Bip Spine1
+    100172: Bip Spine2
+    100174: Body
+    100176: Bottom Jaw001
+    100178: Bottom Jaw002
+    100180: Hair1
+    100182: Hair2
+    100184: L Eye
+    100186: L Eyebrows1
+    100188: L Eyebrows2
+    100190: L LookAt
+    100192: LookAt
+    100194: R Eye
+    100196: R Eyebrows1
+    100198: R Eyebrows2
+    100200: R LookAt
+    100202: Shirts
+    100204: Up Jaw001
+    100206: Up Jaw002
+    100208: //RootNode
+    400000: Bip
+    400002: Bip Footsteps
+    400004: Bip Head
+    400006: Bip HeadNub
+    400008: Bip L Calf
+    400010: Bip L Clavicle
+    400012: Bip L Finger0
+    400014: Bip L Finger01
+    400016: Bip L Finger02
+    400018: Bip L Finger0Nub
+    400020: Bip L Finger1
+    400022: Bip L Finger11
+    400024: Bip L Finger12
+    400026: Bip L Finger13
+    400028: Bip L Finger1Nub
+    400030: Bip L Finger2
+    400032: Bip L Finger21
+    400034: Bip L Finger22
+    400036: Bip L Finger23
+    400038: Bip L Finger2Nub
+    400040: Bip L Finger3
+    400042: Bip L Finger31
+    400044: Bip L Finger32
+    400046: Bip L Finger33
+    400048: Bip L Finger3Nub
+    400050: Bip L Finger4
+    400052: Bip L Finger41
+    400054: Bip L Finger42
+    400056: Bip L Finger43
+    400058: Bip L Finger4Nub
+    400060: Bip L Foot
+    400062: Bip L Forearm
+    400064: Bip L ForeTwist
+    400066: Bip L ForeTwist1
+    400068: Bip L Hand
+    400070: Bip L Thigh
+    400072: Bip L Toe0
+    400074: Bip L Toe0Nub
+    400076: Bip L UpperArm
+    400078: Bip LThighTwist
+    400080: Bip LThighTwist1
+    400082: Bip LUpArmTwist
+    400084: Bip LUpArmTwist1
+    400086: Bip Neck
+    400088: Bip Pelvis
+    400090: Bip R Calf
+    400092: Bip R Clavicle
+    400094: Bip R Finger0
+    400096: Bip R Finger01
+    400098: Bip R Finger02
+    400100: Bip R Finger0Nub
+    400102: Bip R Finger1
+    400104: Bip R Finger11
+    400106: Bip R Finger12
+    400108: Bip R Finger13
+    400110: Bip R Finger1Nub
+    400112: Bip R Finger2
+    400114: Bip R Finger21
+    400116: Bip R Finger22
+    400118: Bip R Finger23
+    400120: Bip R Finger2Nub
+    400122: Bip R Finger3
+    400124: Bip R Finger31
+    400126: Bip R Finger32
+    400128: Bip R Finger33
+    400130: Bip R Finger3Nub
+    400132: Bip R Finger4
+    400134: Bip R Finger41
+    400136: Bip R Finger42
+    400138: Bip R Finger43
+    400140: Bip R Finger4Nub
+    400142: Bip R Foot
+    400144: Bip R Forearm
+    400146: Bip R ForeTwist
+    400148: Bip R ForeTwist1
+    400150: Bip R Hand
+    400152: Bip R Thigh
+    400154: Bip R Toe0
+    400156: Bip R Toe0Nub
+    400158: Bip R UpperArm
+    400160: Bip RThighTwist
+    400162: Bip RThighTwist1
+    400164: Bip RUpArmTwist
+    400166: Bip RUpArmTwist1
+    400168: Bip Spine
+    400170: Bip Spine1
+    400172: Bip Spine2
+    400174: Body
+    400176: Bottom Jaw001
+    400178: Bottom Jaw002
+    400180: Hair1
+    400182: Hair2
+    400184: L Eye
+    400186: L Eyebrows1
+    400188: L Eyebrows2
+    400190: L LookAt
+    400192: LookAt
+    400194: R Eye
+    400196: R Eyebrows1
+    400198: R Eyebrows2
+    400200: R LookAt
+    400202: Shirts
+    400204: Up Jaw001
+    400206: Up Jaw002
+    400208: //RootNode
+    2100000: eye
+    2100002: hair
+    2100004: body
+    2100006: shirts
+    2300000: Hair1
+    2300002: Hair2
+    2300004: L Eye
+    2300006: R Eye
+    3300000: Hair1
+    3300002: Hair2
+    3300004: L Eye
+    3300006: R Eye
+    4300000: L Eye
+    4300002: R Eye
+    4300004: Hair1
+    4300006: Hair2
+    4300008: Body
+    4300010: Shirts
+    7400000: Take 001
+    9500000: //RootNode
+    13700000: Body
+    13700002: Shirts
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
 
-public class PlayerControl : MonoBehaviour {
+public class PlayerControl : MonoBehaviour
+{
 
     protected CharacterController Controller = null;
 
@@ -28,12 +29,10 @@ public class PlayerControl : MonoBehaviour {
     private bool isMoving;//現在、移動中か
     private bool isFound;//敵に見つかっているか
 
-    private NavMeshAgent agent;
-
     public static bool menu_active;
     // Use this for initialization
-    void Start () {
-        agent = GetComponent<NavMeshAgent>();
+    void Start()
+    {
 
         isMoving = false;
 
@@ -52,7 +51,6 @@ public class PlayerControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        agent.speed = SPEED;
 
         //HPなくなったら
         if (HP <= 0)
@@ -68,7 +66,7 @@ public class PlayerControl : MonoBehaviour {
             InputKeyboard();
             head.transform.position = new Vector3(transform.position.x, transform.position.y, transform.position.z);
         }
-      
+
     }
     void Move(Vector2 target, bool isDash = false)
     {
@@ -138,7 +136,7 @@ public class PlayerControl : MonoBehaviour {
         }
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
-            transform.position=rightHand.GetComponent<RightHand>().GetTargetPosition();
+            transform.position = rightHand.GetComponent<RightHand>().GetTargetPosition();
             Debug.Log("右中指トリガーを押した");
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
@@ -159,11 +157,11 @@ public class PlayerControl : MonoBehaviour {
         // 左手のアナログスティックの向きを取得
         Vector2 stickL = OVRInput.Get(OVRInput.RawAxis2D.LThumbstick);
         //移動
-        Move(stickL,dash);
-        
+        Move(stickL, dash);
+
         // 右手のアナログスティックの向きを取得
         Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
-        
+
 
     }
 
@@ -179,7 +177,7 @@ public class PlayerControl : MonoBehaviour {
         bool dash = false;
         if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             dash = true;
-        
+
 
         if (Input.GetKey(KeyCode.W))
         {
@@ -237,14 +235,14 @@ public class PlayerControl : MonoBehaviour {
 
         float mad = Input.GetAxis("Mouse ScrollWheel");
         dis += mad;
-        stick.transform.position = head.transform.forward*dis +transform.position;
+        stick.transform.position = head.transform.forward * dis + transform.position;
 
         //Move(vector, dash);
     }
     //左手に触れたアイテムを左手が持つ（タグ条件）
     void CatchLeftHand(string tagname)
     {
-        Debug.Log("catch"+tagname);
+        Debug.Log("catch" + tagname);
     }
     void InputCameraMoment(float x, float y)
     {
@@ -253,7 +251,8 @@ public class PlayerControl : MonoBehaviour {
         if (forward.y > 80) forward.y = 80;//下方向の上限
         if (forward.y < -80) forward.y = -80;//上方向の上限
 
-        if (!isStickMode) {
+        if (!isStickMode)
+        {
             head.transform.rotation = Quaternion.Euler(new Vector3(forward.y, forward.x, 0));
             transform.rotation = Quaternion.Euler(new Vector3(0, forward.x, 0));
         }
@@ -287,7 +286,7 @@ public class PlayerControl : MonoBehaviour {
     {
         menu_active = b;
     }
-    Vector3 getDirectionDegree(Vector3 target,float deg,float range = 1.0f)
+    Vector3 getDirectionDegree(Vector3 target, float deg, float range = 1.0f)
     {
         Vector3 vector = target.normalized;
 
@@ -302,13 +301,13 @@ public class PlayerControl : MonoBehaviour {
 
         return vector;
     }
-    Vector3 RotateY(Vector3 target,float deg,float range = 1.0f)
+    Vector3 RotateY(Vector3 target, float deg, float range = 1.0f)
     {
         Vector3 vector = (target).normalized;
 
         //ラジアンに変換
         float rag = deg + Mathf.PI / 180;
-        
+
         float az = vector.z * Mathf.Cos(rag) - vector.x * Mathf.Sin(rag);
         float ax = vector.z * Mathf.Sin(rag) - vector.x * Mathf.Cos(rag);
 
@@ -338,6 +337,5 @@ public class PlayerControl : MonoBehaviour {
         targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
         isMoving ^= true;
 
-        agent.destination = targetPosition;
     }
 }
