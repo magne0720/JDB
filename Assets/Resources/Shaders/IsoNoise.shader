@@ -24,10 +24,11 @@
 
 						//ピクセル取得
 		fixed4 c = tex2D(_MainTex, i.uv);
-		float n = i.uv *random(i.uv * _T)*2.0 + 0.5;
+		float n = i.uv *random(i.uv * _T)*0.5 + 0.7;
+		//n *= 1.2;
 
-		c *= fixed4(n, n, n, 1.0);
-		c.g += 0.10;
+		c *= fixed4(0.0, n, 0.0, 1.0);
+		c.g += 0.12;
 
 		return fixed4(c);
 		}
