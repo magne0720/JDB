@@ -50,5 +50,9 @@ public class TimeCounter : MonoBehaviour {
     public void ClearGame()//クリア時の処理
     {
 
+<<<<<<< HEAD
+        //Light.transform.Rotate(new Vector3(-Time.deltaTime,0,0));
+=======
+>>>>>>> origin/サブ枝
     }
 }
