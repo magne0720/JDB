@@ -37,7 +37,7 @@
 		float a = c.r * 0.3 + c.g * 0.59 + c.b * 0.11;
 		c = fixed4( a,c.g,a,1.0);
 
-		c = fixed4( c.r + ( 0.2 *_Limit), c.g + (0.1 *_Limit), c.b + (0.0 *_Limit), 1.0);
+		c = fixed4( c.r + _Limit, c.g + _Limit, c.b + _Limit, 1.0);
 
 		
 		c.r += distance(i.uv*sin(_T*3.14*speed), fixed2(0, 0))*_Depth;
