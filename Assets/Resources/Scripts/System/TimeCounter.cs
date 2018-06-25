@@ -5,22 +5,40 @@ using UnityEngine;
 public class TimeCounter : MonoBehaviour {
     [Header ("制限時間(秒)")]
     public float TimeLimit;
+    [Header("ライト")]
+    public GameObject light;
+
+    GameManager gameManager;
+
+    //Quaternion q1, q2;
+    float lerpValue;
     bool StartFlag = false;
     bool ClearFlag = false;
 	// Use this for initialization
 	void Start () {
+        gameManager = GameObject.Find("GameObject").GetComponent<GameManager>();
         Application.targetFrameRate = 90;
+
         setTimer();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetKeyDown(KeyCode.Return))
+        //if(Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    StartTimer(!StartFlag);
+        //    setTimer(15);
+        //}
+        //if (StartFlag) StartTimer();
+        if (gameManager.gameMode == GameManager.GAME_MODE.GAME)
         {
-            StartTimer(!StartFlag);
-            setTimer(15);
+            // float lerpValue = gameManager.GamePlayTimer / gameManager.GameClearTime;
+            // float lerpValue;
+            lerpValue = gameManager.GamePlayTimer /gameManager.GameClearTime;
+            Quaternion q1 = Quaternion.Euler(30f, 0f, 0f);
+            Quaternion q2 = Quaternion.Euler(150f, 0f, 0f);
+            light.transform.rotation = Quaternion.Lerp(q1, q2, lerpValue);
         }
-        if (StartFlag) StartTimer();
     }
 
     void StartTimer()
