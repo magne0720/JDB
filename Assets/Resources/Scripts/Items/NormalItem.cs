@@ -24,8 +24,8 @@ public class NormalItem : MonoBehaviour {
 
     //player接近判定用
     //player取得
-    public string playerName;
-    private GameObject player;
+    private string[] playerName = { "player", "enemy" };
+    private List<GameObject> player = new List<GameObject>();
     private float caputureRange;
 
     // Use this for initialization
@@ -36,7 +36,7 @@ public class NormalItem : MonoBehaviour {
         vibrateRange = 0.05f;
         vibrateSpeed = 3;
         caputureRange = 2;
-        playerName = "player";
+        //playerName = "player";
         //test用記述
 
         this.initPosition.y = transform.localPosition.y;
@@ -55,7 +55,11 @@ public class NormalItem : MonoBehaviour {
         for (int i = 0; i < directionToggle.Length; ++i)
             this.directionToggle[i] = false;
 
-        player = GameObject.Find(playerName);
+        for (int i = 0; i < playerName.Length; ++i)
+        {
+            Debug.Log(playerName[i]);
+            player.Add(GameObject.Find(playerName[i]));
+        }
     }
 	
 	// Update is called once per frame
@@ -141,16 +145,23 @@ public class NormalItem : MonoBehaviour {
 
     bool checkDrawNearer()
     {
-        if (player.transform.position.x >= initPosition.x - caputureRange
-            && player.transform.position.x <= initPosition.x + caputureRange
-            && player.transform.position.z >= initPosition.z - caputureRange
-            && player.transform.position.z <= initPosition.z + caputureRange
-            && player.transform.position.y >= initPosition.y - caputureRange
-            && player.transform.position.y <= initPosition.y + caputureRange)
+        for (int i = 0; i < player.Count; ++i)
         {
-            return true;
+            Debug.Log(player[i].transform.position.x + ":" + (initPosition.x - caputureRange));
+            if (player[i].transform.position.x >= initPosition.x - caputureRange
+                && player[i].transform.position.x <= initPosition.x + caputureRange
+                && player[i].transform.position.z >= initPosition.z - caputureRange
+                && player[i].transform.position.z <= initPosition.z + caputureRange
+                && player[i].transform.position.y >= initPosition.y - caputureRange
+                && player[i].transform.position.y <= initPosition.y + caputureRange)
+            {
+                Debug.Log("今年は何年だぁ！？");
+                return true;
+            }
         }
-        else return false;
+
+        //Debug.Log("ウッキー！　今年はサル年ィ！！");
+        return false;
         
     }
 }
