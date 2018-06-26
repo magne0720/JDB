@@ -1,7 +1,6 @@
 ﻿Shader "Custom/DamageEffectShader" {
 	Properties{
 		_MainTex("MainTex", 2D) = ""{}
-		_Limit("limit", Float) = 0.0
 
 	}
 	SubShader{

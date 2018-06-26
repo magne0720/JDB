@@ -18,7 +18,6 @@ public class SpawnManager : MonoBehaviour
             GameObject g = transform.GetChild(i).gameObject;
             SpawnPoints.Add(g);
         }
-        OriginalSpawn(1);
     }
 
     // Update is called once per frame
@@ -41,11 +40,11 @@ public class SpawnManager : MonoBehaviour
             Result.Addtarget(g);
         }
     }
-    public void Spawn()
+    public void Spawn(int num)
     {
-        foreach (GameObject g in SpawnEnemys)
+        for(int i=0;i<num;i++)
         {
-            EnemyControl ec = g.GetComponent<EnemyControl>();
+            EnemyControl ec = SpawnEnemys[i].GetComponent<EnemyControl>();
             if (!ec.isSpawn)
             {
                 int rand = Random.Range(0, SpawnPoints.Count);

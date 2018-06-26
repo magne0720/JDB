@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour {
     //ゲーム状態
     public enum GAME_MODE
     {
-        TITLE,GAME,CLEAR,MISS
+        TITLE, GAME, CLEAR, MISS
     }
     //ゲーム状態の変数
     public GAME_MODE gameMode;
@@ -18,30 +18,49 @@ public class GameManager : MonoBehaviour {
     //経過時間
     public float GamePlayTimer = 0.0f;
 
+    public bool isGameStandby = false;//タイトルからスタートボタンへ
+    public bool isGameStartStandby = false;//スタートボタンの明転から暗転してゲームスタートへ
+
+    public PostEffect effect;
 
     //ゲーム開始用のスタートボタンオブジェクト
     public IsRendered StartButton;
 
-	// Use this for initialization
-	void Start () {
+    public TextManager text;
+
+    public SpawnManager spawn;
+
+    // Use this for initialization
+    void Start() {
 
         GamePlayTimer = 0.0f;
         gameMode = GAME_MODE.TITLE;
+    }
 
-
-
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    // Update is called once per frame
+    void Update() {
 
         switch (gameMode)
         {
             //ゲーム開始の待機
             case GAME_MODE.TITLE:
-                if (StartButton.isCaption)
+                if (isGameStandby)
                 {
                     GameStart();
+                    if (OVRInput.GetDown(OVRInput.RawButton.A)||Input.GetKeyDown(KeyCode.Return))
+                    {
+                        if (effect.damage==1)
+                        {
+                            if (text.changeText())
+                            {
+                                isGameStartStandby = true;
+                            }
+                        }
+                    }
+                }
+                if (StartButton.isCaption)
+                {
+                    isGameStandby = true;
                 }
                 break;
             //ゲーム中
@@ -69,7 +88,38 @@ public class GameManager : MonoBehaviour {
     //ゲーム開始の初期化
     void GameStart()
     {
+        if (isGameStandby)
+        {
+            if (isGameStartStandby)
+            {
+                if (effect.damage >= -0.2f)
+                {
+                    effect.damage -= 0.05f;
+                }
+                if (effect.damage < 0.2f)
+                {
+                    effect.damage = -0.2f;
+                    GameStartInit();
+                }
+            }
+            else
+            {
+                if (effect.damage <= 1.0f)
+                {
+                    effect.damage += 0.05f;
+                }
+                if (effect.damage > 1.0f)
+                {
+                    effect.damage = 1.0f;
+                }
+            }
+        }
+    }
+    void GameStartInit()
+    {
         gameMode = GAME_MODE.GAME;
+        spawn.OriginalSpawn(5);
+        spawn.Spawn(1);
     }
 
     //ゲームオーバー時
