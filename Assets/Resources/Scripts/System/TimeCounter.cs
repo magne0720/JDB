@@ -16,8 +16,8 @@ public class TimeCounter : MonoBehaviour {
     bool ClearFlag = false;
 	// Use this for initialization
 	void Start () {
-        gameManager = GameObject.Find("GameObject").GetComponent<GameManager>();
-        Application.targetFrameRate = 90;
+        gameManager = GetComponent<GameManager>();
+        //Application.targetFrameRate = 90;
 
         setTimer();
 	}
