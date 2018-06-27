@@ -5,9 +5,11 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
 
+    public static List<GameObject> LastPoints;
     public static List<GameObject> SpawnPoints;
     public List<GameObject> SpawnEnemys;
     public GameObject SpawnObject;
+    public GameObject LastPointParent;
 
     // Use this for initialization
     void Start()
@@ -18,7 +20,12 @@ public class SpawnManager : MonoBehaviour
             GameObject g = transform.GetChild(i).gameObject;
             SpawnPoints.Add(g);
         }
-        OriginalSpawn(1);
+        LastPoints = new List<GameObject>();
+        for(int i=0;i<LastPointParent.transform.childCount;i++)
+        {
+            GameObject g = LastPointParent.transform.GetChild(i).gameObject;
+            LastPoints.Add(g);
+        }
     }
 
     // Update is called once per frame
@@ -36,26 +43,25 @@ public class SpawnManager : MonoBehaviour
         }
         for (int i = 0; i < num; i++)
         {
-            GameObject g = Instantiate(SpawnObject);
+            GameObject g = Instantiate(SpawnObject,new Vector3(0,-25,0),Quaternion.identity);
             SpawnEnemys.Add(g);
             Result.Addtarget(g);
         }
     }
-    public void Spawn()
+    public void Spawn(int num)
     {
-        foreach (GameObject g in SpawnEnemys)
+        for (int i = 0; i < num; i++)
         {
-            EnemyControl ec = g.GetComponent<EnemyControl>();
+            EnemyControl ec = SpawnEnemys[i].GetComponent<EnemyControl>();
             if (!ec.isSpawn)
             {
                 int rand = Random.Range(0, SpawnPoints.Count);
                 ec.points = SpawnPoints[rand].GetComponent<SpawnRoot>().GetRoot();
                 ec.Respawn();
-                g.transform.position = SpawnPoints[rand].transform.position;
             }
         }
     }
-    public static List<Vector3> GetSpawnPoints(out Vector3 startPos,int num = -1)
+    public static List<Vector3> GetSpawnPoints(out Vector3 startPos, int num = -1)
     {
         int n = 0;
         List<Vector3> vecs = new List<Vector3>();
@@ -72,5 +78,17 @@ public class SpawnManager : MonoBehaviour
         startPos = SpawnPoints[n].transform.position;
 
         return vecs;
+    }
+    //最終地点をランダムで選択する
+    public static Vector3 GetSpawnLastPoint(out Transform t)
+    {
+        Transform temp;
+        int n = Random.Range(0, LastPoints.Count);
+
+        temp = LastPoints[n].transform;
+
+        t = temp;
+
+        return temp.position;
     }
 }

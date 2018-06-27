@@ -26,7 +26,7 @@ public class TextManager : MonoBehaviour
 	void Start ()
     {
         
-        textBox = GameObject.Find(textBoxName).GetComponent<Text>();
+        textBox = GetComponent<Text>();
         currentLine = 0;
         LineLog = currentLine;
 
@@ -36,10 +36,10 @@ public class TextManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
-        {
-            setText();
-        }
+        //if (Input.GetKeyDown(KeyCode.Return))
+        //{
+        //    changeText();
+        //}
 
 		
 	}
@@ -49,11 +49,14 @@ public class TextManager : MonoBehaviour
         textOrigine = Resources.Load<TextAsset>("text/" + title);
         string[] serch = { "@@" };
         textLine = textOrigine.text.Split(serch, System.StringSplitOptions.RemoveEmptyEntries);
-        setText();
+        changeText();
+
     }
 
-    void setText()
+    public bool changeText()
     {
+        if (currentLine >= textLine.Length) return true;
+
         string s_Text = textLine[currentLine];
         textBox.text = s_Text;//.Substring(2);
 
@@ -67,9 +70,14 @@ public class TextManager : MonoBehaviour
         }
 
         ++currentLine;
-        if (currentLine == textLine.Length) currentLine = 0;
+        if (currentLine >= textLine.Length)
+        {
+            //currentLine = 0;
+            return true;
+        }
 
         Debug.Log("次回：" + currentLine + "表示：" + LineLog + "戻る：" + backLine);
+        return false;
 
     }
 

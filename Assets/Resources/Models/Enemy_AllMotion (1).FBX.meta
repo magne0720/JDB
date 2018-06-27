@@ -1,0 +1,413 @@
+fileFormatVersion: 2
+guid: 8c9f621e7ebf7b54abf0b0fddeccbe8d
+timeCreated: 1530074436
+licenseType: Free
+ModelImporter:
+  serializedVersion: 22
+  fileIDToRecycleName:
+    100000: Arms
+    100002: Back Skirt1
+    100004: Back Skirt2
+    100006: Bip
+    100008: Bip Footsteps
+    100010: Bip Head
+    100012: Bip HeadNub
+    100014: Bip L Calf
+    100016: Bip L Clavicle
+    100018: Bip L Finger0
+    100020: Bip L Finger01
+    100022: Bip L Finger02
+    100024: Bip L Finger0Nub
+    100026: Bip L Finger1
+    100028: Bip L Finger11
+    100030: Bip L Finger12
+    100032: Bip L Finger13
+    100034: Bip L Finger1Nub
+    100036: Bip L Finger2
+    100038: Bip L Finger21
+    100040: Bip L Finger22
+    100042: Bip L Finger23
+    100044: Bip L Finger2Nub
+    100046: Bip L Finger3
+    100048: Bip L Finger31
+    100050: Bip L Finger32
+    100052: Bip L Finger33
+    100054: Bip L Finger3Nub
+    100056: Bip L Finger4
+    100058: Bip L Finger41
+    100060: Bip L Finger42
+    100062: Bip L Finger43
+    100064: Bip L Finger4Nub
+    100066: Bip L Foot
+    100068: Bip L Forearm
+    100070: Bip L Hand
+    100072: Bip L Thigh
+    100074: Bip L Toe0
+    100076: Bip L Toe0Nub
+    100078: Bip L UpperArm
+    100080: Bip LThighTwist
+    100082: Bip LThighTwist1
+    100084: Bip Neck
+    100086: Bip Pelvis
+    100088: Bip R Calf
+    100090: Bip R Clavicle
+    100092: Bip R Finger0
+    100094: Bip R Finger01
+    100096: Bip R Finger02
+    100098: Bip R Finger0Nub
+    100100: Bip R Finger1
+    100102: Bip R Finger11
+    100104: Bip R Finger12
+    100106: Bip R Finger13
+    100108: Bip R Finger1Nub
+    100110: Bip R Finger2
+    100112: Bip R Finger21
+    100114: Bip R Finger22
+    100116: Bip R Finger23
+    100118: Bip R Finger2Nub
+    100120: Bip R Finger3
+    100122: Bip R Finger31
+    100124: Bip R Finger32
+    100126: Bip R Finger33
+    100128: Bip R Finger3Nub
+    100130: Bip R Finger4
+    100132: Bip R Finger41
+    100134: Bip R Finger42
+    100136: Bip R Finger43
+    100138: Bip R Finger4Nub
+    100140: Bip R Foot
+    100142: Bip R Forearm
+    100144: Bip R Hand
+    100146: Bip R Thigh
+    100148: Bip R Toe0
+    100150: Bip R Toe0Nub
+    100152: Bip R UpperArm
+    100154: Bip RThighTwist
+    100156: Bip RThighTwist1
+    100158: Bip Spine
+    100160: Bip Spine1
+    100162: Bip Spine2
+    100164: Body
+    100166: Bottom Jaw001
+    100168: Bottom Jaw002
+    100170: //RootNode
+    100172: Front Skirt1
+    100174: Front Skirt2
+    100176: Hair
+    100178: Head
+    100180: L Hair1
+    100182: L Hair2
+    100184: L Hair3
+    100186: L Hair4
+    100188: L Skirt1
+    100190: L Skirt2
+    100192: Leg
+    100194: R Eye
+    100196: R Hair1
+    100198: R Hair2
+    100200: R Hair3
+    100202: R Hair4
+    100204: R LookAt
+    100206: R Skirt1
+    100208: R Skirt2
+    100210: Shirt
+    100212: Up Jaw001
+    100214: Up Jaw002
+    400000: Arms
+    400002: Back Skirt1
+    400004: Back Skirt2
+    400006: Bip
+    400008: Bip Footsteps
+    400010: Bip Head
+    400012: Bip HeadNub
+    400014: Bip L Calf
+    400016: Bip L Clavicle
+    400018: Bip L Finger0
+    400020: Bip L Finger01
+    400022: Bip L Finger02
+    400024: Bip L Finger0Nub
+    400026: Bip L Finger1
+    400028: Bip L Finger11
+    400030: Bip L Finger12
+    400032: Bip L Finger13
+    400034: Bip L Finger1Nub
+    400036: Bip L Finger2
+    400038: Bip L Finger21
+    400040: Bip L Finger22
+    400042: Bip L Finger23
+    400044: Bip L Finger2Nub
+    400046: Bip L Finger3
+    400048: Bip L Finger31
+    400050: Bip L Finger32
+    400052: Bip L Finger33
+    400054: Bip L Finger3Nub
+    400056: Bip L Finger4
+    400058: Bip L Finger41
+    400060: Bip L Finger42
+    400062: Bip L Finger43
+    400064: Bip L Finger4Nub
+    400066: Bip L Foot
+    400068: Bip L Forearm
+    400070: Bip L Hand
+    400072: Bip L Thigh
+    400074: Bip L Toe0
+    400076: Bip L Toe0Nub
+    400078: Bip L UpperArm
+    400080: Bip LThighTwist
+    400082: Bip LThighTwist1
+    400084: Bip Neck
+    400086: Bip Pelvis
+    400088: Bip R Calf
+    400090: Bip R Clavicle
+    400092: Bip R Finger0
+    400094: Bip R Finger01
+    400096: Bip R Finger02
+    400098: Bip R Finger0Nub
+    400100: Bip R Finger1
+    400102: Bip R Finger11
+    400104: Bip R Finger12
+    400106: Bip R Finger13
+    400108: Bip R Finger1Nub
+    400110: Bip R Finger2
+    400112: Bip R Finger21
+    400114: Bip R Finger22
+    400116: Bip R Finger23
+    400118: Bip R Finger2Nub
+    400120: Bip R Finger3
+    400122: Bip R Finger31
+    400124: Bip R Finger32
+    400126: Bip R Finger33
+    400128: Bip R Finger3Nub
+    400130: Bip R Finger4
+    400132: Bip R Finger41
+    400134: Bip R Finger42
+    400136: Bip R Finger43
+    400138: Bip R Finger4Nub
+    400140: Bip R Foot
+    400142: Bip R Forearm
+    400144: Bip R Hand
+    400146: Bip R Thigh
+    400148: Bip R Toe0
+    400150: Bip R Toe0Nub
+    400152: Bip R UpperArm
+    400154: Bip RThighTwist
+    400156: Bip RThighTwist1
+    400158: Bip Spine
+    400160: Bip Spine1
+    400162: Bip Spine2
+    400164: Body
+    400166: Bottom Jaw001
+    400168: Bottom Jaw002
+    400170: //RootNode
+    400172: Front Skirt1
+    400174: Front Skirt2
+    400176: Hair
+    400178: Head
+    400180: L Hair1
+    400182: L Hair2
+    400184: L Hair3
+    400186: L Hair4
+    400188: L Skirt1
+    400190: L Skirt2
+    400192: Leg
+    400194: R Eye
+    400196: R Hair1
+    400198: R Hair2
+    400200: R Hair3
+    400202: R Hair4
+    400204: R LookAt
+    400206: R Skirt1
+    400208: R Skirt2
+    400210: Shirt
+    400212: Up Jaw001
+    400214: Up Jaw002
+    2100000: eye
+    2100002: blinn1
+    2100004: hair
+    2100006: shirt
+    2100008: body
+    2300000: Head
+    2300002: Leg
+    2300004: R Eye
+    3300000: Head
+    3300002: Leg
+    3300004: R Eye
+    4300000: R Eye
+    4300002: Leg
+    4300004: Head
+    4300006: Arms
+    4300008: Hair
+    4300010: Shirt
+    4300012: Body
+    7400000: Wait
+    7400002: Walk
+    7400004: Attack
+    9500000: //RootNode
+    13700000: Arms
+    13700002: Body
+    13700004: Hair
+    13700006: Shirt
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Wait
+      takeName: Take 001
+      firstFrame: 10
+      lastFrame: 140
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Walk
+      takeName: Take 001
+      firstFrame: 170
+      lastFrame: 230
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Attack
+      takeName: Take 001
+      firstFrame: 250
+      lastFrame: 440
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

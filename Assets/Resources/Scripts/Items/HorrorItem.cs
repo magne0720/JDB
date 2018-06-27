@@ -20,7 +20,7 @@ public class HorrorItem : IsRendered {
         OriginPos = transform.position;
         GetComponent<Rigidbody>().freezeRotation = true;
         GetComponent<Rigidbody>().useGravity = true;
-        InstParticle();
+        //InstParticle();
     }
 
     // Update is called once per frame

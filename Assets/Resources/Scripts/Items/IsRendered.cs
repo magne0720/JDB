@@ -56,11 +56,12 @@ public class IsRendered : MonoBehaviour
 
         return false;
     }
-    public void InstParticle()
+    public void InstParticle(int num)
     {
         if (Particle != null)
         {
             particleObj = Instantiate(Particle, transform.position, Quaternion.identity);
+            particleObj.gameObject.layer = num;
             particleObj.Play();
         }
     }

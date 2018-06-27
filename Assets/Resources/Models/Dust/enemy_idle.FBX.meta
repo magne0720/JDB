@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 8af4d1157eebe244a9b3a37cdf4a3793
-timeCreated: 1529919909
+guid: d34ae8a4c097b654084612fd32d7a251
+timeCreated: 1529919910
 licenseType: Free
 ModelImporter:
   serializedVersion: 22
@@ -255,7 +255,7 @@ ModelImporter:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
-    optimizeGameObjects: 0
+    optimizeGameObjects: 1
     motionNodeName: 
     rigImportErrors: 
     rigImportWarnings: 
@@ -276,7 +276,7 @@ ModelImporter:
       name: Take 001
       takeName: Take 001
       firstFrame: 0
-      lastFrame: 60
+      lastFrame: 130
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -341,7 +341,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    rootMotionBoneName: 
+    rootMotionBoneName: Body
     rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
     hasExtraRoot: 0

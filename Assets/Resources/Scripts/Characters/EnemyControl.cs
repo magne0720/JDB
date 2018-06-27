@@ -38,13 +38,25 @@ public class EnemyControl : IsRendered {
         animator.SetBool("Walk", false);
 
         LastPointObj = GameObject.Find("EnemyLastPoint");
+        //player = GameObject.Find("Player").transform;
+        //agent.isStopped=true;
+        isNext = false;
+        isLastAttack = false;        
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!isSpawn)
+        {
+            agent.isStopped = true;
+        }
+        if (agent.isStopped)
+        {
+            return;
+        }
 
-        if (!agent.pathPending && agent.remainingDistance < 0.5f)
+        if (!isLastAttack&&!agent.pathPending && agent.remainingDistance < 0.5f)
         {
             isNext = true;
             SetLayerAllChildren(14);
@@ -56,7 +68,7 @@ public class EnemyControl : IsRendered {
             NextTimer += Time.deltaTime;
             if (NextTimer >= LimitTime)
             {
-                if (destPoint >= points.Count-1)
+                if (destPoint >= points.Count)
                 {
                     //ゲームオーバー寸前
                     LastRoot();
@@ -72,9 +84,15 @@ public class EnemyControl : IsRendered {
                     animator.SetBool("Walk", true);
                 }
             }
+
+        }
+        else
+        {
+            InstParticle(gameObject.layer);
+
         }
 
-        if (Input.GetKeyDown(KeyCode.Q)) Respawn();
+            //if (Input.GetKeyDown(KeyCode.Q)) Respawn();
 
         //agent.isStopped = false;
     }
@@ -116,10 +134,14 @@ public class EnemyControl : IsRendered {
 
         Vector3 v=new Vector3();
         points = SpawnManager.GetSpawnPoints(out v);
-        transform.position = v;
+        agent.Warp(v);
         destPoint = 0;
         agent.destination = points[destPoint];
         isSpawn = true;
+        isLastAttack = false;
+
+        animator.SetBool("Attack", false);
+        agent.isStopped = false;
     }
 
     void LastRoot()
@@ -128,10 +150,19 @@ public class EnemyControl : IsRendered {
         {
             Attack();
         }
+        else
+        {
+            Transform t;
 
-        isLastAttack = true;
-        //ベッドからのぞくアニメーション
-        transform.position = LastPointObj.transform.position;
+            SetLayerAllChildren(9);
+
+            isLastAttack = true;
+            //ベッドからのぞくアニメーション
+            agent.Warp(SpawnManager.GetSpawnLastPoint(out t));
+            transform.rotation = t.rotation;
+
+            animator.SetBool("Attack", true);
+        }
     }
 
     void Attack()
