@@ -50,7 +50,6 @@ public class TextManager : MonoBehaviour
         string[] serch = { "@@" };
         textLine = textOrigine.text.Split(serch, System.StringSplitOptions.RemoveEmptyEntries);
         setText();
-
     }
 
     void setText()

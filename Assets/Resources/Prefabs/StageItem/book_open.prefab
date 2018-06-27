@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 95643491717322286}
   - component: {fileID: 54948489734309820}
   - component: {fileID: 65075311578512066}
+  - component: {fileID: 114895417988483354}
   m_Layer: 0
   m_Name: book_open
   m_TagString: Untagged
@@ -390,3 +391,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114895417988483354
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1912977200462368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb31ee09f6235c47a43fe414ad7a0fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vibrateType: 0
+  vibrateRange: 0
+  vibrateSpeed: 0

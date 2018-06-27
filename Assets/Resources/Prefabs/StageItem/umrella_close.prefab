@@ -177,6 +177,7 @@ GameObject:
   - component: {fileID: 54866408222357828}
   - component: {fileID: 136475064581114042}
   - component: {fileID: 136498481278176024}
+  - component: {fileID: 114524347854753624}
   m_Layer: 0
   m_Name: umrella_close
   m_TagString: Untagged
@@ -1358,6 +1359,20 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114524347854753624
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1335146670009228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0eb31ee09f6235c47a43fe414ad7a0fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vibrateType: 0
+  vibrateRange: 0
+  vibrateSpeed: 0
 --- !u!136 &136475064581114042
 CapsuleCollider:
   m_ObjectHideFlags: 1
