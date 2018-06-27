@@ -67,10 +67,14 @@ public class NormalItem : MonoBehaviour {
     {
         if (checkDrawNearer())
         {
+            //Constraintsで振動中は回転とPositionが変わらない
+            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Shake();
         }
         else
         {
+            //Constraintsを解除
+            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             resetPosition();
         }
         //List<GameObject> objs = Result.CameraPhotoTargets;
@@ -196,6 +200,12 @@ public class NormalItem : MonoBehaviour {
 
         this.newPosition = this.initPosition;
     }
-    
+
+    void awakeConstraints()
+    {
+        this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+    }
+
+
 }
 
