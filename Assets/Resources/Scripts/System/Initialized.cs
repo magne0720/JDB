@@ -15,7 +15,7 @@ public class Initialized : MonoBehaviour {
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F12))
+        if (Input.GetKeyDown(KeyCode.F12))//debug用
         {
             SceneManager.LoadScene("GameScene");
         }
@@ -26,7 +26,7 @@ public class Initialized : MonoBehaviour {
         if (clear) clearCount++;
         else gameoverCount++;
 
-        Debug.Log("sceneReset");
-        SceneManager.LoadScene("GameScene");
+        //Debug.Log("sceneReset");
+        SceneManager.LoadScene("GameScene");//再読み込み
     }
 }
