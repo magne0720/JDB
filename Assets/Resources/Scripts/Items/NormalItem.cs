@@ -24,8 +24,8 @@ public class NormalItem : MonoBehaviour {
 
     //player接近判定用
     //player取得
-    private string[] playerName = { "player", "enemy" };
-    private List<GameObject> player = new List<GameObject>();
+    private string[] reactionObjectName = { "player" };
+    private List<GameObject> reactionObject = new List<GameObject>();
     private float caputureRange;
 
     // Use this for initialization
@@ -55,10 +55,10 @@ public class NormalItem : MonoBehaviour {
         for (int i = 0; i < directionToggle.Length; ++i)
             this.directionToggle[i] = false;
 
-        for (int i = 0; i < playerName.Length; ++i)
+        for (int i = 0; i < reactionObjectName.Length; ++i)
         {
-            Debug.Log(playerName[i]);
-            player.Add(GameObject.Find(playerName[i]));
+            //Debug.Log(playerName[i]);
+            reactionObject.Add(GameObject.Find(reactionObjectName[i]));
         }
     }
 	
@@ -68,6 +68,10 @@ public class NormalItem : MonoBehaviour {
         if (checkDrawNearer())
         {
             Shake();
+        }
+        else
+        {
+            resetPosition();
         }
         //List<GameObject> objs = Result.CameraPhotoTargets;
 	}
@@ -145,24 +149,53 @@ public class NormalItem : MonoBehaviour {
 
     bool checkDrawNearer()
     {
-        for (int i = 0; i < player.Count; ++i)
+        for (int i = 0; i < reactionObject.Count; ++i)
         {
-            Debug.Log(player[i].transform.position.x + ":" + (initPosition.x - caputureRange));
-            if (player[i].transform.position.x >= initPosition.x - caputureRange
-                && player[i].transform.position.x <= initPosition.x + caputureRange
-                && player[i].transform.position.z >= initPosition.z - caputureRange
-                && player[i].transform.position.z <= initPosition.z + caputureRange
-                && player[i].transform.position.y >= initPosition.y - caputureRange
-                && player[i].transform.position.y <= initPosition.y + caputureRange)
+            //Debug.Log(player[i].transform.position.x + ":" + (initPosition.x - caputureRange));
+            if (reactionObject[i].transform.position.x >= initPosition.x - caputureRange
+                && reactionObject[i].transform.position.x <= initPosition.x + caputureRange
+                && reactionObject[i].transform.position.z >= initPosition.z - caputureRange
+                && reactionObject[i].transform.position.z <= initPosition.z + caputureRange
+                && reactionObject[i].transform.position.y >= initPosition.y - caputureRange
+                && reactionObject[i].transform.position.y <= initPosition.y + caputureRange)
             {
-                Debug.Log("今年は何年だぁ！？");
+                //Debug.Log("今年は何年だぁ！？");
                 return true;
             }
         }
 
         //Debug.Log("ウッキー！　今年はサル年ィ！！");
         return false;
-        
     }
+
+    void addReactionObject(GameObject obj)
+    {
+        reactionObject.Add(obj);
+    }
+
+    void resetPosition()
+    {
+        if (this.transform.position.x != initPosition.x)
+        {
+            initPosition.x = this.transform.position.x;
+            this.minPosition.x = this.initPosition.x - this.vibrateRange;
+            this.maxPosition.x = this.initPosition.x + this.vibrateRange;
+        }
+        if (this.transform.position.y != initPosition.y)
+        {
+            initPosition.y = this.transform.position.y;
+            this.minPosition.y = this.initPosition.y - this.vibrateRange;
+            this.maxPosition.y = this.initPosition.y + this.vibrateRange;
+        }
+        if (this.transform.position.z != initPosition.z)
+        {
+            initPosition.z = this.transform.position.z;
+            this.minPosition.z = this.initPosition.z - this.vibrateRange;
+            this.minPosition.z = this.initPosition.z - this.vibrateRange;
+        }
+
+        this.newPosition = this.initPosition;
+    }
+    
 }
 
