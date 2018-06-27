@@ -3402,9 +3402,12 @@ MonoBehaviour:
   isCaption: 0
   points: []
   player: {fileID: 0}
+  ExObj: {fileID: 0}
   destPoint: 0
+  LastPointObj: {fileID: 0}
   isSpawn: 0
   isNext: 0
+  isLastAttack: 0
   NextTimer: 0
 --- !u!136 &136630637174755020
 CapsuleCollider:

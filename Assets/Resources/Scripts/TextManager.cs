@@ -26,7 +26,7 @@ public class TextManager : MonoBehaviour
 	void Start ()
     {
         
-        textBox = GameObject.Find(textBoxName).GetComponent<Text>();
+        textBox = GetComponent<Text>();
         currentLine = 0;
         LineLog = currentLine;
 

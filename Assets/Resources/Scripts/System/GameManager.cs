@@ -21,6 +21,8 @@ public class GameManager : MonoBehaviour {
     public bool isGameStandby = false;//タイトルからスタートボタンへ
     public bool isGameStartStandby = false;//スタートボタンの明転から暗転してゲームスタートへ
 
+    public static bool isAttacked;//攻撃されているか
+
     public PostEffect effect;
 
     //ゲーム開始用のスタートボタンオブジェクト
@@ -32,7 +34,7 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start() {
-
+        effect.Depth = 0.0f;
         GamePlayTimer = 0.0f;
         gameMode = GAME_MODE.TITLE;
     }
@@ -75,10 +77,12 @@ public class GameManager : MonoBehaviour {
                 break;
             //ゲームクリア
             case GAME_MODE.CLEAR:
+                GamePlayTimer = 0.0f;
                 gameMode = GAME_MODE.TITLE;
                 break;
             //ゲームオーバー
             case GAME_MODE.MISS:
+                GamePlayTimer = 0.0f;
                 gameMode = GAME_MODE.TITLE;
                 break;
             default:
@@ -118,7 +122,7 @@ public class GameManager : MonoBehaviour {
     void GameStartInit()
     {
         gameMode = GAME_MODE.GAME;
-        spawn.OriginalSpawn(5);
+        spawn.OriginalSpawn(10);
         spawn.Spawn(1);
     }
 

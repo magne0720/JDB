@@ -334,8 +334,8 @@ public class PlayerControl : MonoBehaviour
     void SetTarget()
     {
         Debug.Log("setTarget");
-        targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
-        isMoving ^= true;
+        //targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
+        //isMoving ^= true;
 
     }
 }
