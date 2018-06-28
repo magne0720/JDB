@@ -10,6 +10,7 @@ TagManager:
   - HorrorItem
   - Glass
   - TV
+  - NormalItem
   layers:
   - Default
   - TransparentFX

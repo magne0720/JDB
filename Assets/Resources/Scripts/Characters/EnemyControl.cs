@@ -68,7 +68,7 @@ public class EnemyControl : IsRendered {
             NextTimer += Time.deltaTime;
             if (NextTimer >= LimitTime)
             {
-                if (destPoint >= points.Count)
+                if (destPoint >= points.Count-1)
                 {
                     //ゲームオーバー寸前
                     LastRoot();
@@ -168,7 +168,7 @@ public class EnemyControl : IsRendered {
     void Attack()
     {
         //この処理が通ったらゲームオーバーにする
-
+        GameManager.GameOver();
     }
 
     void Damage()

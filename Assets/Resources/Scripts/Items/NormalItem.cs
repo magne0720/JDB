@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 internal enum VibrateType
 {
     VERTICAL,
@@ -10,6 +11,7 @@ internal enum VibrateType
     ALL
 }
 
+[RequireComponent(typeof(Rigidbody))]
 public class NormalItem : MonoBehaviour {
 
     [SerializeField] private VibrateType vibrateType;          //振動タイプ
@@ -24,7 +26,7 @@ public class NormalItem : MonoBehaviour {
 
     //player接近判定用
     //player取得
-    private string[] reactionObjectName = { "player" };
+    //private string[] reactionObjectName;
     private List<GameObject> reactionObject = new List<GameObject>();
     private float caputureRange;
 
@@ -55,11 +57,11 @@ public class NormalItem : MonoBehaviour {
         for (int i = 0; i < directionToggle.Length; ++i)
             this.directionToggle[i] = false;
 
-        for (int i = 0; i < reactionObjectName.Length; ++i)
-        {
-            //Debug.Log(playerName[i]);
-            reactionObject.Add(GameObject.Find(reactionObjectName[i]));
-        }
+        //for (int i = 0; i < reactionObjectName.Length; ++i)
+        //{
+        //    //Debug.Log(playerName[i]);
+        //    reactionObject.Add(GameObject.Find(reactionObjectName[i]));
+        //}
     }
 	
 	// Update is called once per frame
@@ -68,13 +70,13 @@ public class NormalItem : MonoBehaviour {
         if (checkDrawNearer())
         {
             //Constraintsで振動中は回転とPositionが変わらない
-            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Shake();
         }
         else
         {
             //Constraintsを解除
-            //this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             resetPosition();
         }
         //List<GameObject> objs = Result.CameraPhotoTargets;
@@ -172,7 +174,7 @@ public class NormalItem : MonoBehaviour {
         return false;
     }
 
-    void addReactionObject(GameObject obj)
+    public void addReactionObject(GameObject obj)
     {
         reactionObject.Add(obj);
     }

@@ -32,15 +32,24 @@ public class GameManager : MonoBehaviour {
 
     public SpawnManager spawn;
 
+    public static bool isGameOver = false;
+
+    public List<GameObject> NormalItems;
     // Use this for initialization
     void Start() {
         effect.Depth = 0.0f;
         GamePlayTimer = 0.0f;
         gameMode = GAME_MODE.TITLE;
+        NormalItems = new List<GameObject>();
+        foreach (GameObject g in GameObject.FindGameObjectsWithTag("NormalItem"))
+        {
+            NormalItems.Add(g);
+        }
     }
 
     // Update is called once per frame
-    void Update() {
+    void Update()
+    {
 
         switch (gameMode)
         {
@@ -49,9 +58,9 @@ public class GameManager : MonoBehaviour {
                 if (isGameStandby)
                 {
                     GameStart();
-                    if (OVRInput.GetDown(OVRInput.RawButton.A)||Input.GetKeyDown(KeyCode.Return))
+                    if (OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Return))
                     {
-                        if (effect.damage==1)
+                        if (effect.damage == 1)
                         {
                             if (text.changeText())
                             {
@@ -74,6 +83,10 @@ public class GameManager : MonoBehaviour {
                 {
                     gameMode = GAME_MODE.CLEAR;
                 }
+                if (isGameOver)
+                {
+                    gameMode = GAME_MODE.MISS;
+                }
                 break;
             //ゲームクリア
             case GAME_MODE.CLEAR:
@@ -82,8 +95,17 @@ public class GameManager : MonoBehaviour {
                 break;
             //ゲームオーバー
             case GAME_MODE.MISS:
-                GamePlayTimer = 0.0f;
-                gameMode = GAME_MODE.TITLE;
+                if (effect.damage >= -1.0f)
+                {
+                    effect.damage -= 0.02f;
+                }
+                else
+                {
+                    GamePlayTimer = 0.0f;
+                    isGameStandby = false;
+                    isGameStartStandby = false;
+                    gameMode = GAME_MODE.TITLE;
+                }
                 break;
             default:
                 break;
@@ -124,12 +146,21 @@ public class GameManager : MonoBehaviour {
         gameMode = GAME_MODE.GAME;
         spawn.OriginalSpawn(10);
         spawn.Spawn(1);
+
+        foreach (GameObject g in NormalItems)
+        {
+            foreach (GameObject o in spawn.SpawnEnemys)
+            {
+                Debug.Log("g.name" + g.name);
+                g.GetComponent<NormalItem>().addReactionObject(o);
+            }
+        }
     }
 
     //ゲームオーバー時
-    void GameOver()
+    public static void GameOver()
     {
-
+        isGameOver = true;
     }
 
     //ポーズ時の変更
