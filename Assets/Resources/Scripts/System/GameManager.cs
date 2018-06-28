@@ -85,6 +85,7 @@ public class GameManager : MonoBehaviour {
                 }
                 if (isGameOver)
                 {
+                    StartButton.setObjectActive(true);
                     gameMode = GAME_MODE.MISS;
                 }
                 break;
@@ -141,8 +142,11 @@ public class GameManager : MonoBehaviour {
             }
         }
     }
+
+    //ゲーム開始
     void GameStartInit()
     {
+        StartButton.setObjectActive(false);
         gameMode = GAME_MODE.GAME;
         spawn.OriginalSpawn(10);
         spawn.Spawn(1);

@@ -69,4 +69,9 @@ public class IsRendered : MonoBehaviour
     {
         particleObj.Stop();
     }
+
+    public  void setObjectActive(bool b = true)
+    {
+        this.gameObject.SetActive(b);
+    }
 }
