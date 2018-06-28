@@ -31,7 +31,10 @@ public class TextManager : MonoBehaviour
         LineLog = currentLine;
 
         textIn(textName);
-	}
+
+        gameObject.SetActive(false);
+
+    }
 	
 	// Update is called once per frame
 	void Update ()
@@ -80,5 +83,16 @@ public class TextManager : MonoBehaviour
         return false;
 
     }
-
+    public void ResetCountText()
+    {
+        currentLine = 0;
+    }
+    public void SetText(string s)
+    {
+        textBox.text = s;
+    }
+    public void SetTextColor(Color c)
+    {
+        textBox.color = c;
+    }
 }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 //ゲーム全体の管理
@@ -45,6 +46,7 @@ public class GameManager : MonoBehaviour {
         {
             NormalItems.Add(g);
         }
+        isGameOver = false;
     }
 
     // Update is called once per frame
@@ -72,6 +74,7 @@ public class GameManager : MonoBehaviour {
                 if (StartButton.isCaption)
                 {
                     isGameStandby = true;
+                    text.gameObject.SetActive(true);
                 }
                 break;
             //ゲーム中
@@ -91,8 +94,25 @@ public class GameManager : MonoBehaviour {
                 break;
             //ゲームクリア
             case GAME_MODE.CLEAR:
-                GamePlayTimer = 0.0f;
-                gameMode = GAME_MODE.TITLE;
+                if (effect.damage <= 1.0f)
+                {
+                    effect.damage += 0.02f;
+                }
+                else
+                {
+                    GamePlayTimer = 0.0f;
+                    isGameStandby = false;
+                    isGameStartStandby = false;
+                    StartButton.isCaption = false;
+                    text.ResetCountText();
+                    text.gameObject.SetActive(true);
+                    text.SetTextColor(Color.black);
+                    text.SetText("朝になり帰ることができるようになった。\nAボタンでタイトル");
+                    if (OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Return))
+                    {
+                        SceneManager.LoadScene(0);
+                    }
+                }
                 break;
             //ゲームオーバー
             case GAME_MODE.MISS:
@@ -105,7 +125,15 @@ public class GameManager : MonoBehaviour {
                     GamePlayTimer = 0.0f;
                     isGameStandby = false;
                     isGameStartStandby = false;
-                    gameMode = GAME_MODE.TITLE;
+                    StartButton.isCaption = false;
+                    text.ResetCountText();
+                    text.gameObject.SetActive(true);
+                    text.SetTextColor(Color.white);
+                    text.SetText("あなたは死んでしまった。\nAボタンでタイトル");
+                    if (OVRInput.GetDown(OVRInput.RawButton.A)||Input.GetKeyDown(KeyCode.Return))
+                    {
+                        SceneManager.LoadScene(0);
+                    }
                 }
                 break;
             default:
