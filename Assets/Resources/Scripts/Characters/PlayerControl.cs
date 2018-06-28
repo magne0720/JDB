@@ -52,6 +52,8 @@ public class PlayerControl : MonoBehaviour
     void Update()
     {
 
+        transform.position = new Vector3(0, 0.3f,0);
+
         //HPなくなったら
         if (HP <= 0)
         {
@@ -142,7 +144,7 @@ public class PlayerControl : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))
         {
             Debug.Log("左人差し指トリガーを押した");
-            SetTarget();
+            //SetTarget();
         }
         if (OVRInput.Get(OVRInput.RawButton.LHandTrigger))
         {
@@ -211,7 +213,7 @@ public class PlayerControl : MonoBehaviour
         }
         if (Input.GetMouseButtonDown(1))
         {
-            SetTarget();
+            //SetTarget();
         }
         //スティックを動かすモード
         if (Input.GetKeyDown(KeyCode.F))
@@ -225,7 +227,7 @@ public class PlayerControl : MonoBehaviour
         //}
         if (Input.GetKeyDown(KeyCode.L))
         {
-            SetTarget();
+            //SetTarget();
         }
 
         if (!menu_active && (Input.GetKeyDown(KeyCode.Escape) || OVRInput.GetDown(OVRInput.RawButton.Back)))

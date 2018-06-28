@@ -11,6 +11,7 @@ public class PostEffect : MonoBehaviour {
     public float Depth = 1.2f;
     public float damage = -0.2f;
 
+
     void OnRenderImage(RenderTexture src, RenderTexture dest)
     {
         Graphics.Blit(src, dest, Damage);

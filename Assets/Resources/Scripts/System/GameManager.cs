@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour {
                         }
                     }
                 }
-                if (StartButton.isCaption)
+                if (StartButton.isCaptioned)
                 {
                     isGameStandby = true;
                     text.gameObject.SetActive(true);
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour {
                     GamePlayTimer = 0.0f;
                     isGameStandby = false;
                     isGameStartStandby = false;
-                    StartButton.isCaption = false;
+                    StartButton.isCaptioned = false;
                     text.ResetCountText();
                     text.gameObject.SetActive(true);
                     text.SetTextColor(Color.black);
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour {
                     GamePlayTimer = 0.0f;
                     isGameStandby = false;
                     isGameStartStandby = false;
-                    StartButton.isCaption = false;
+                    StartButton.isCaptioned = false;
                     text.ResetCountText();
                     text.gameObject.SetActive(true);
                     text.SetTextColor(Color.white);

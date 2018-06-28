@@ -17,7 +17,7 @@ public class IsRendered : MonoBehaviour
 
     //カメラに表示されているか
     public bool isRendered = false;
-    public bool isCaption = false;//一度撮られたか
+    public bool isCaptioned = false;//一度撮られたか
 
     void Start()
     {
@@ -52,7 +52,7 @@ public class IsRendered : MonoBehaviour
     public virtual bool Caption()
     {
         //継承先で変わる
-        isCaption = true;
+        isCaptioned = true;
 
         return false;
     }
