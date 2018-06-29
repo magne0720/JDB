@@ -29,13 +29,15 @@ public class GameManager : MonoBehaviour {
     //ゲーム開始用のスタートボタンオブジェクト
     public IsRendered StartButton;
 
-    public TextManager text;
+    public List<TextManager> text;
 
     public SpawnManager spawn;
 
     public static bool isGameOver = false;
 
     public List<GameObject> NormalItems;
+
+    public int AddTime = 120;
     // Use this for initialization
     void Start() {
         effect.Depth = 0.0f;
@@ -64,7 +66,8 @@ public class GameManager : MonoBehaviour {
                     {
                         if (effect.damage == 1)
                         {
-                            if (text.changeText())
+                            foreach(TextManager t in text)
+                            if (t.changeText())
                             {
                                 isGameStartStandby = true;
                             }
@@ -74,13 +77,18 @@ public class GameManager : MonoBehaviour {
                 if (StartButton.isCaptioned)
                 {
                     isGameStandby = true;
-                    text.gameObject.SetActive(true);
+                    foreach(TextManager t in text)
+                    t.gameObject.SetActive(true);
                 }
                 break;
             //ゲーム中
             case GAME_MODE.GAME:
                 GamePlayTimer += Time.deltaTime;
-
+                if ((int)GamePlayTimer % AddTime == 0 && GamePlayTimer / AddTime > spawn.putCount)
+                {
+                    spawn.Spawn(1);
+                    Debug.Log("dfaf");
+                }
                 //クリア条件
                 if (GamePlayTimer >= GameClearTime)
                 {
@@ -88,7 +96,6 @@ public class GameManager : MonoBehaviour {
                 }
                 if (isGameOver)
                 {
-                    StartButton.setObjectActive(true);
                     gameMode = GAME_MODE.MISS;
                 }
                 break;
@@ -104,10 +111,13 @@ public class GameManager : MonoBehaviour {
                     isGameStandby = false;
                     isGameStartStandby = false;
                     StartButton.isCaptioned = false;
-                    text.ResetCountText();
-                    text.gameObject.SetActive(true);
-                    text.SetTextColor(Color.black);
-                    text.SetText("朝になり帰ることができるようになった。\nAボタンでタイトル");
+                    foreach (TextManager t in text)
+                    {
+                        t.ResetCountText();
+                        t.gameObject.SetActive(true);
+                        t.SetTextColor(Color.black);
+                        t.SetText("朝になり帰ることができるようになった。\nAボタンでタイトル");
+                    }
                     if (OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Return))
                     {
                         SceneManager.LoadScene(0);
@@ -126,10 +136,13 @@ public class GameManager : MonoBehaviour {
                     isGameStandby = false;
                     isGameStartStandby = false;
                     StartButton.isCaptioned = false;
-                    text.ResetCountText();
-                    text.gameObject.SetActive(true);
-                    text.SetTextColor(Color.white);
-                    text.SetText("あなたは死んでしまった。\nAボタンでタイトル");
+                    foreach (TextManager t in text)
+                    {
+                        t.ResetCountText();
+                        t.gameObject.SetActive(true);
+                        t.SetTextColor(Color.black);
+                        t.SetText("あなたは死んでしまった。\nAボタンでタイトル");
+                    }
                     if (OVRInput.GetDown(OVRInput.RawButton.A)||Input.GetKeyDown(KeyCode.Return))
                     {
                         SceneManager.LoadScene(0);
@@ -183,7 +196,6 @@ public class GameManager : MonoBehaviour {
         {
             foreach (GameObject o in spawn.SpawnEnemys)
             {
-                Debug.Log("g.name" + g.name);
                 g.GetComponent<NormalItem>().addReactionObject(o);
             }
         }

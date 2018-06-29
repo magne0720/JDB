@@ -88,8 +88,6 @@ public class PhoneCamera : MonoBehaviour
     }
     void HoldPhoto(Texture2D tex)
     {
-        return;
-        //必要なし
         GameObject obj = Instantiate(texobj,transform.position,Quaternion.identity);
         obj.transform.parent = canvas.transform.transform;
         obj.transform.localScale = new Vector3(1, 1, 1);

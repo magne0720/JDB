@@ -51,9 +51,7 @@ public class PlayerControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        transform.position = new Vector3(0, 0.3f,0);
-
+        
         //HPなくなったら
         if (HP <= 0)
         {
@@ -118,7 +116,8 @@ public class PlayerControl : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.B))
         {
             Debug.Log("Bボタンを押した");
-            Result.InstGallery();
+            //Result.InstGallery();
+            phone.TakePhoto();
         }
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
@@ -135,10 +134,12 @@ public class PlayerControl : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.RIndexTrigger))
         {
             Debug.Log("右人差し指トリガーを押した");
+            phone.TakePhoto();
         }
         if (OVRInput.GetDown(OVRInput.RawButton.RHandTrigger))
         {
-            transform.position = rightHand.GetComponent<RightHand>().GetTargetPosition();
+            //transform.position = rightHand.GetComponent<RightHand>().GetTargetPosition();
+            phone.TakePhoto();
             Debug.Log("右中指トリガーを押した");
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LIndexTrigger))

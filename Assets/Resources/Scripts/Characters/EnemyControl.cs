@@ -119,6 +119,11 @@ public class EnemyControl : IsRendered {
     }
     public override bool Caption()
     {
+        if(!isSpawn)
+        {
+            return false;
+        }
+
         //Destroy(gameObject);
         Debug.Log("Get");
 

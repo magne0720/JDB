@@ -11,6 +11,8 @@ public class SpawnManager : MonoBehaviour
     public GameObject SpawnObject;
     public GameObject LastPointParent;
 
+    public int putCount = 0;
+
     // Use this for initialization
     void Start()
     {
@@ -26,6 +28,7 @@ public class SpawnManager : MonoBehaviour
             GameObject g = LastPointParent.transform.GetChild(i).gameObject;
             LastPoints.Add(g);
         }
+        putCount = 0;
     }
 
     // Update is called once per frame
@@ -50,7 +53,9 @@ public class SpawnManager : MonoBehaviour
     }
     public void Spawn(int num)
     {
-        for (int i = 0; i < num; i++)
+        int limit = putCount + num;
+        if(putCount<SpawnEnemys.Count)
+        for (int i = putCount; i < limit; i++)
         {
             EnemyControl ec = SpawnEnemys[i].GetComponent<EnemyControl>();
             if (!ec.isSpawn)
@@ -58,6 +63,7 @@ public class SpawnManager : MonoBehaviour
                 int rand = Random.Range(0, SpawnPoints.Count);
                 ec.points = SpawnPoints[rand].GetComponent<SpawnRoot>().GetRoot();
                 ec.Respawn();
+                putCount++;
             }
         }
     }

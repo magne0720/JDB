@@ -62,6 +62,9 @@ public class NormalItem : MonoBehaviour {
         //    //Debug.Log(playerName[i]);
         //    reactionObject.Add(GameObject.Find(reactionObjectName[i]));
         //}
+
+        GetComponent<Rigidbody>().useGravity = true;
+        GetComponent<Rigidbody>().isKinematic = false;
     }
 	
 	// Update is called once per frame
