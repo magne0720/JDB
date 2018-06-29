@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.AI;
+using UnityEngine.VR;
+using UnityEngine.XR;
+
 
 public class PlayerControl : MonoBehaviour
 {
@@ -15,6 +18,7 @@ public class PlayerControl : MonoBehaviour
     public GameObject leftHand;//左手
     public GameObject rightHand;//右手
     public PostEffect post;//見つかった演出のスクリプト
+    public GameObject youtuber;
 
     public Vector3 targetPosition;
 
@@ -30,9 +34,14 @@ public class PlayerControl : MonoBehaviour
     private bool isFound;//敵に見つかっているか
 
     public static bool menu_active;
+
+    public Vector3 basePoint;
+    public GameObject Paper;
+    bool isPaperActive;
     // Use this for initialization
     void Start()
     {
+        basePoint = new Vector3(0,0.5f,0);
 
         isMoving = false;
 
@@ -46,12 +55,28 @@ public class PlayerControl : MonoBehaviour
         }
 
         menu_active = false;
+        isPaperActive = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        // VR.InputTracking から hmd の位置を取得
+        Vector3 trackingPos =
+                UnityEngine.XR.InputTracking.GetLocalPosition(XRNode.CenterEye);
+
+        // CameraController 自体の rotation が
+        // zero でなければ rotation を掛ける
+        // trackingPosition = trackingPos * transform.rotation;
+
+        // 固定したい位置から hmd の位置を
+        // 差し引いて実質 hmd の移動を無効化する
+        transform.position = basePoint - trackingPos;
+
+        youtuber.transform.position = new Vector3(0, 0, 0);
+        Vector3 r = transform.rotation.eulerAngles;
+        r.y = head.transform.rotation.eulerAngles.y;
+        youtuber.transform.rotation = Quaternion.Euler(r);
         //HPなくなったら
         if (HP <= 0)
         {
@@ -122,10 +147,12 @@ public class PlayerControl : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.RawButton.X))
         {
             Debug.Log("Xボタンを押した");
+            PaperActive();
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Y))
         {
             Debug.Log("Yボタンを押した");
+            PaperActive();
         }
         if (OVRInput.GetDown(OVRInput.RawButton.Start))
         {
@@ -146,14 +173,15 @@ public class PlayerControl : MonoBehaviour
         {
             Debug.Log("左人差し指トリガーを押した");
             //SetTarget();
+
         }
         if (OVRInput.Get(OVRInput.RawButton.LHandTrigger))
         {
-            dash = true;
+            //dash = true;
         }
         if (OVRInput.GetDown(OVRInput.RawButton.LHandTrigger))
         {
-            dash = true;
+            //dash = true;
             Debug.Log("左中指トリガーを押した");
         }
         //スティック
@@ -166,6 +194,20 @@ public class PlayerControl : MonoBehaviour
         Vector2 stickR = OVRInput.Get(OVRInput.RawAxis2D.RThumbstick);
 
 
+    }
+
+    void PaperActive()
+    {
+        if (isPaperActive)
+        {
+            Paper.gameObject.SetActive(false);
+            isPaperActive = false;
+        }
+        else
+        {
+            Paper.gameObject.SetActive(true);
+            isPaperActive = true;
+        }
     }
 
     //右手コントローラーの位置の設定

@@ -140,7 +140,7 @@ public class GameManager : MonoBehaviour {
                     {
                         t.ResetCountText();
                         t.gameObject.SetActive(true);
-                        t.SetTextColor(Color.black);
+                        t.SetTextColor(Color.white);
                         t.SetText("あなたは死んでしまった。\nAボタンでタイトル");
                     }
                     if (OVRInput.GetDown(OVRInput.RawButton.A)||Input.GetKeyDown(KeyCode.Return))

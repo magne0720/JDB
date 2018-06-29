@@ -3350,16 +3350,18 @@ MonoBehaviour:
   cam: {fileID: 0}
   Particle: {fileID: 198213433161320466, guid: 59b957f301637f04bb1b594af1ad505b, type: 2}
   isRendered: 0
-  isCaption: 0
+  isCaptioned: 0
   points: []
   player: {fileID: 0}
-  ExObj: {fileID: 1574615324627816, guid: d6a452ef88f24274d854a012eca1b929, type: 2}
+  ExObj: {fileID: 1227297177555712, guid: 872b45cdec0549347b33cf824ccdcd3a, type: 2}
   destPoint: 0
   LastPointObj: {fileID: 0}
   isSpawn: 0
   isNext: 0
   isLastAttack: 0
   NextTimer: 0
+  LimitTime: 3
+  mySpeed: 0
 --- !u!136 &136065323880435488
 CapsuleCollider:
   m_ObjectHideFlags: 1

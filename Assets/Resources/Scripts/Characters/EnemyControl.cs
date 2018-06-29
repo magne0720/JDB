@@ -19,8 +19,8 @@ public class EnemyControl : IsRendered {
     public bool isNext;     //指定地点に届き、次の地点に迎える状態か
     public bool isLastAttack;//最後の攻撃に来たか
     public float NextTimer; //次の地点の指定する時間経過
-    public const float LimitTime = 3.0f;//次の地点を指定するまでにかかる時間
-
+    public float LimitTime = 3.0f;//次の地点を指定するまでにかかる時間
+    public float mySpeed;
     Animator animator;
 
     private void Awake()
@@ -41,7 +41,10 @@ public class EnemyControl : IsRendered {
         //player = GameObject.Find("Player").transform;
         //agent.isStopped=true;
         isNext = false;
-        isLastAttack = false;        
+        isLastAttack = false;
+        LimitTime = 3.0f;
+        mySpeed= 1.5f;
+        agent.speed = mySpeed;
     }
 
     // Update is called once per frame
@@ -153,10 +156,11 @@ public class EnemyControl : IsRendered {
     {
         if (isLastAttack)
         {
-            Attack();
+            Attack();            
         }
         else
         {
+            LimitTime = 8.0f;
             Transform t;
 
             SetLayerAllChildren(9);
@@ -172,6 +176,7 @@ public class EnemyControl : IsRendered {
 
     void Attack()
     {
+        LimitTime = 3.0f;
         //この処理が通ったらゲームオーバーにする
         GameManager.GameOver();
     }
@@ -182,6 +187,8 @@ public class EnemyControl : IsRendered {
         {
             Instantiate(ExObj, transform.position, Quaternion.identity);
         }
+        
+        LimitTime = 3.0f;
     }
 
     //子オブジェクトのレイヤーをすべて変更する

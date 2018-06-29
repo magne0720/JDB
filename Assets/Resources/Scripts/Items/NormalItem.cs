@@ -30,9 +30,12 @@ public class NormalItem : MonoBehaviour {
     private List<GameObject> reactionObject = new List<GameObject>();
     private float caputureRange;
 
+    public AudioSource audio;
     // Use this for initialization
     void Start()
     {
+        audio=GetComponent<AudioSource>();
+
         //test用記述
         vibrateType = VibrateType.ALL;
         vibrateRange = 0.05f;
@@ -75,15 +78,23 @@ public class NormalItem : MonoBehaviour {
             //Constraintsで振動中は回転とPositionが変わらない
             this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             Shake();
+            if (audio != null)
+            {
+                audio.Play();
+            }
         }
         else
         {
             //Constraintsを解除
             this.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             resetPosition();
+            if (audio != null)
+            {
+                audio.Stop();
+            }
         }
         //List<GameObject> objs = Result.CameraPhotoTargets;
-	}
+    }
     //自身を揺らす
     public void Shake()
     {
