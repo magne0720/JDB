@@ -66,19 +66,19 @@ public class GameManager : MonoBehaviour {
                     {
                         if (effect.damage == 1)
                         {
-                            foreach(TextManager t in text)
-                            if (t.changeText())
-                            {
-                                isGameStartStandby = true;
-                            }
+                            foreach (TextManager t in text)
+                                if (t.changeText())
+                                {
+                                    isGameStartStandby = true;
+                                }
                         }
                     }
                 }
                 if (StartButton.isCaptioned)
                 {
                     isGameStandby = true;
-                    foreach(TextManager t in text)
-                    t.gameObject.SetActive(true);
+                    foreach (TextManager t in text)
+                        t.gameObject.SetActive(true);
                 }
                 break;
             //ゲーム中
@@ -89,6 +89,7 @@ public class GameManager : MonoBehaviour {
                     spawn.Spawn(1);
                     Debug.Log("dfaf");
                 }
+                CheckGhostAttack();
                 //クリア条件
                 if (GamePlayTimer >= GameClearTime)
                 {
@@ -143,7 +144,7 @@ public class GameManager : MonoBehaviour {
                         t.SetTextColor(Color.white);
                         t.SetText("あなたは死んでしまった。\nAボタンでタイトル");
                     }
-                    if (OVRInput.GetDown(OVRInput.RawButton.A)||Input.GetKeyDown(KeyCode.Return))
+                    if (OVRInput.GetDown(OVRInput.RawButton.A) || Input.GetKeyDown(KeyCode.Return))
                     {
                         SceneManager.LoadScene(0);
                     }
@@ -211,5 +212,33 @@ public class GameManager : MonoBehaviour {
     void Pause()
     {
 
+    }
+
+    void CheckGhostAttack()
+    {
+        bool isAttack = false;
+
+        foreach (GameObject g in spawn.SpawnEnemys)
+        {
+            if (g.GetComponent<EnemyControl>().isLastAttack)
+            {
+                //誰かが最終まで到達している
+                isAttack = true;
+                break;
+            }
+        }
+        if (isAttack)
+        {
+            if (effect.Depth <= 1.5f)
+                effect.Depth += 0.01f;
+        }
+        else if (effect.Depth > 0.0f)
+        {
+            effect.Depth -= 0.03f;
+        }
+        else
+        {
+            effect.Depth = 0.0f;
+        }
     }
 }

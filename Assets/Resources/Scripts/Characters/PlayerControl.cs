@@ -381,6 +381,6 @@ public class PlayerControl : MonoBehaviour
         Debug.Log("setTarget");
         //targetPosition = head.GetComponent<PlayerHead>().GetTargetPosition();
         //isMoving ^= true;
-
+            
     }
 }
